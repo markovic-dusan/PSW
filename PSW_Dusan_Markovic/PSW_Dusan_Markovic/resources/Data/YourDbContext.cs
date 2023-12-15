@@ -7,6 +7,8 @@
     {
         public YourDbContext(DbContextOptions<YourDbContext> options) : base(options) {}
 
+        public YourDbContext() : base() { }
+
         public DbSet<User> Users { get; set; }
         public DbSet<Tour> Tours { get; set; }
         public DbSet<KeyPoint> KeyPoints { get; set; }

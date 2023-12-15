@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\shand\\source\\repos\\PSW_Dusan_Markovic\\PSW_Dusan_Markovic\\PSW_Dusan_Markovic.csproj": {}
+    "C:\\Users\\shand\\source\\repos\\psw_git\\PSW\\PSW_Dusan_Markovic\\PSW_Dusan_Markovic\\PSW_Dusan_Markovic.csproj": {}
   },
   "projects": {
-    "C:\\Users\\shand\\source\\repos\\PSW_Dusan_Markovic\\PSW_Dusan_Markovic\\PSW_Dusan_Markovic.csproj": {
+    "C:\\Users\\shand\\source\\repos\\psw_git\\PSW\\PSW_Dusan_Markovic\\PSW_Dusan_Markovic\\PSW_Dusan_Markovic.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\shand\\source\\repos\\PSW_Dusan_Markovic\\PSW_Dusan_Markovic\\PSW_Dusan_Markovic.csproj",
+        "projectUniqueName": "C:\\Users\\shand\\source\\repos\\psw_git\\PSW\\PSW_Dusan_Markovic\\PSW_Dusan_Markovic\\PSW_Dusan_Markovic.csproj",
         "projectName": "PSW_Dusan_Markovic",
-        "projectPath": "C:\\Users\\shand\\source\\repos\\PSW_Dusan_Markovic\\PSW_Dusan_Markovic\\PSW_Dusan_Markovic.csproj",
+        "projectPath": "C:\\Users\\shand\\source\\repos\\psw_git\\PSW\\PSW_Dusan_Markovic\\PSW_Dusan_Markovic\\PSW_Dusan_Markovic.csproj",
         "packagesPath": "C:\\Users\\shand\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\shand\\source\\repos\\PSW_Dusan_Markovic\\PSW_Dusan_Markovic\\obj\\",
+        "outputPath": "C:\\Users\\shand\\source\\repos\\psw_git\\PSW\\PSW_Dusan_Markovic\\PSW_Dusan_Markovic\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\shand\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,6 +40,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "MSTest.TestFramework": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[7.0.13, )"
@@ -67,6 +71,10 @@
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[6.0.16, )"
+            },
+            "Moq": {
+              "target": "Package",
+              "version": "[4.20.70, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

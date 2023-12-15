@@ -12,6 +12,14 @@ namespace PSW_Dusan_Markovic.resources.service
             _context = context;
         }
 
+        //za testove
+        public UserService(YourDbContext context, List<User> initialData)
+        {
+            _context = context;
+            _context.Users.AddRange(initialData);
+            _context.SaveChanges();
+        }
+
         public List<User> getAllUsers()
         {
             return _context.Users.ToList();

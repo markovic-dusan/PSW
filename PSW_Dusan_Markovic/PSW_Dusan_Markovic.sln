@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSW_Dusan_Markovic", "PSW_Dusan_Markovic\PSW_Dusan_Markovic.csproj", "{F07EAE9A-873E-439A-8AD6-4248837FDA0D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSW_Dusan_Markovic", "PSW_Dusan_Markovic\PSW_Dusan_Markovic.csproj", "{F07EAE9A-873E-439A-8AD6-4248837FDA0D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSW_Test", "PSW_Test\PSW_Test.csproj", "{A77FBEE2-4773-4D39-819D-25C8C7FDFCDD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{F07EAE9A-873E-439A-8AD6-4248837FDA0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F07EAE9A-873E-439A-8AD6-4248837FDA0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F07EAE9A-873E-439A-8AD6-4248837FDA0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A77FBEE2-4773-4D39-819D-25C8C7FDFCDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A77FBEE2-4773-4D39-819D-25C8C7FDFCDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A77FBEE2-4773-4D39-819D-25C8C7FDFCDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A77FBEE2-4773-4D39-819D-25C8C7FDFCDD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
