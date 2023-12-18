@@ -59,7 +59,12 @@ namespace PSW_Dusan_Markovic.resources.service
             {
                 return false;
             }
-            userToUpdate = user;
+            userToUpdate.Username = user.Username;
+            userToUpdate.Password = user.Password;
+            userToUpdate.UserType = user.UserType;
+            userToUpdate.Name = user.Name;
+            userToUpdate.LastName = user.LastName;
+            userToUpdate.Email = user.Email;
             _context.SaveChanges();
             return true;
         }

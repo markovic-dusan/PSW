@@ -16,7 +16,7 @@
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+            modelBuilder.Entity<Tour>().Property(t => t.Price).HasColumnType("decimal(18,2)");
         }
     }
 }

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\shand\\source\\repos\\psw_git\\PSW\\PSW_Dusan_Markovic\\PSW_Dusan_Markovic\\PSW_Dusan_Markovic.csproj": {}
+    "C:\\Users\\uif58171\\Desktop\\fax\\PSW\\PSW_Dusan_Markovic\\PSW_Dusan_Markovic\\PSW_Dusan_Markovic.csproj": {}
   },
   "projects": {
-    "C:\\Users\\shand\\source\\repos\\psw_git\\PSW\\PSW_Dusan_Markovic\\PSW_Dusan_Markovic\\PSW_Dusan_Markovic.csproj": {
+    "C:\\Users\\uif58171\\Desktop\\fax\\PSW\\PSW_Dusan_Markovic\\PSW_Dusan_Markovic\\PSW_Dusan_Markovic.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\shand\\source\\repos\\psw_git\\PSW\\PSW_Dusan_Markovic\\PSW_Dusan_Markovic\\PSW_Dusan_Markovic.csproj",
+        "projectUniqueName": "C:\\Users\\uif58171\\Desktop\\fax\\PSW\\PSW_Dusan_Markovic\\PSW_Dusan_Markovic\\PSW_Dusan_Markovic.csproj",
         "projectName": "PSW_Dusan_Markovic",
-        "projectPath": "C:\\Users\\shand\\source\\repos\\psw_git\\PSW\\PSW_Dusan_Markovic\\PSW_Dusan_Markovic\\PSW_Dusan_Markovic.csproj",
-        "packagesPath": "C:\\Users\\shand\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\shand\\source\\repos\\psw_git\\PSW\\PSW_Dusan_Markovic\\PSW_Dusan_Markovic\\obj\\",
+        "projectPath": "C:\\Users\\uif58171\\Desktop\\fax\\PSW\\PSW_Dusan_Markovic\\PSW_Dusan_Markovic\\PSW_Dusan_Markovic.csproj",
+        "packagesPath": "C:\\Users\\uif58171\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\uif58171\\Desktop\\fax\\PSW\\PSW_Dusan_Markovic\\PSW_Dusan_Markovic\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\shand\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\uif58171\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -44,19 +44,17 @@
               "target": "Package",
               "version": "[3.1.1, )"
             },
+            "Microsoft.AspNetCore.Mvc.Testing": {
+              "target": "Package",
+              "version": "[6.0.15, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[7.0.13, )"
-            },
-            "Microsoft.EntityFrameworkCore.Design": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[7.0.13, )"
+              "version": "[6.0.23, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[7.0.13, )"
+              "version": "[6.0.23, )"
             },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
