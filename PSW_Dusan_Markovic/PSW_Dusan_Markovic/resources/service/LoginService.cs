@@ -20,17 +20,15 @@ public class LoginService
 
     public async Task<string> AuthenticateAsync(LoginRequest loginRequest)
     {
-        var user = await _userManager.FindByNameAsync(loginRequest.Username);
+        var user = await _userManager.FindByNameAsync(loginRequest.LoginUserName);
 
-        // Pogrešan username/password
-        if (user == null || !await _userManager.CheckPasswordAsync(user, loginRequest.Password))
+        if (user == null || !await _userManager.CheckPasswordAsync(user, loginRequest.LoginPassword))
         {
             return null;
         }
 
         var claims = new List<Claim>();
 
-        // Provera null vrednosti pre dodavanja Claims
         if (!string.IsNullOrEmpty(user.UserName))
         {
             claims.Add(new Claim(ClaimTypes.Name, user.UserName));
@@ -51,7 +49,6 @@ public class LoginService
 
         var roles = await _userManager.GetRolesAsync(user);
 
-        // Provera null vrednosti pre dodavanja Claims
         if (roles != null)
         {
             claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
@@ -61,7 +58,8 @@ public class LoginService
             Console.WriteLine("Roles is null");
         }
 
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"].PadRight(64)));
+
         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
         var token = new JwtSecurityToken(

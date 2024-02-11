@@ -43,8 +43,8 @@ public class LoginServiceTests
 
 
         _configurationMock = new Mock<IConfiguration>();
-        _configurationMock.SetupGet(x => x["Jwt:Key"]).Returns("10000000000");
-        _configurationMock.SetupGet(x => x["Jwt:Issuer"]).Returns("YourIssuer");
+        _configurationMock.SetupGet(x => x["Jwt:Key"]).Returns("0w0J3Mo1$3cReT");
+        _configurationMock.SetupGet(x => x["Jwt:Issuer"]).Returns("Issuer");
         _configurationMock.SetupGet(x => x["Jwt:ExpireMinutes"]).Returns("30");
 
         _loginService = new LoginService(_userManagerMock.Object, _signInManagerMock.Object, _configurationMock.Object);
@@ -54,13 +54,13 @@ public class LoginServiceTests
     public async Task AuthenticateAsync_ValidCredentials_ReturnsToken()
     {
         // Arrange
-        var validUser = new User("valid", "validpassword", "Jane", "Doe", "jane@example.com", UserType.TOURIST);
+        var validUser = new User("valid", "validpassword", "Dragan", "Deagic", "gagi@example.com", UserType.TOURIST);
 
         _userManagerMock.Setup(m => m.FindByNameAsync(validUser.UserName)).ReturnsAsync(validUser);
         _userManagerMock.Setup(m => m.CheckPasswordAsync(It.IsAny<User>(), It.IsAny<string>())).ReturnsAsync(true);
         _userManagerMock.Setup(m => m.GetRolesAsync(validUser)).ReturnsAsync(new List<string> { "TOURIST" });
 
-        var loginRequest = new LoginRequest { Username = validUser.UserName, Password = "validpassword" };
+        var loginRequest = new LoginRequest { LoginUserName = validUser.UserName, LoginPassword = validUser.Password };
 
         // Act
         var token = await _loginService.AuthenticateAsync(loginRequest);
@@ -73,12 +73,12 @@ public class LoginServiceTests
     public async Task AuthenticateAsync_InvalidCredentials_ReturnsNull()
     {
         // Arrange
-        var invalidUser = new User("invalid", "password", "Jane", "Doe", "jane@example.com", UserType.TOURIST);
+        var invalidUser = new User("invalid", "password", "Dragan", "Dragic", "gagi@example.com", UserType.TOURIST);
 
         _userManagerMock.Setup(m => m.FindByNameAsync(invalidUser.UserName))
             .ReturnsAsync((User)null);
 
-        var loginRequest = new LoginRequest { Username = invalidUser.UserName, Password = "invalidpassword" };
+        var loginRequest = new LoginRequest {LoginUserName = invalidUser.UserName, LoginPassword = "invalidpassword" };
 
         // Act
         var token = await _loginService.AuthenticateAsync(loginRequest);

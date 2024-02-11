@@ -56,7 +56,7 @@ public class UserServiceTests
             // Assert
             Assert.IsTrue(result, "User registration should be successful");
 
-            var registeredUser = context.Users.FirstOrDefault(u => u.Username == "newuser");
+            var registeredUser = context.Users.FirstOrDefault(u => u.UserName == "newuser");
             Assert.IsNotNull(registeredUser, "User should be saved in the database");
         }
     }
@@ -154,7 +154,7 @@ public class UserServiceTests
             Assert.IsTrue(result, "User update should be successful");
             var retrievedUser = context.Users.Find(existingUser.UserId);
             Assert.IsNotNull(retrievedUser, "User should be found in the database");
-            Assert.AreEqual("newusername", retrievedUser.Username);
+            Assert.AreEqual("newusername", retrievedUser.UserName);
             Assert.AreEqual("newpassword", retrievedUser.Password);
             Assert.AreEqual("NewName", retrievedUser.Name);
             Assert.AreEqual("NewLastName", retrievedUser.LastName);

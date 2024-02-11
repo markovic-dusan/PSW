@@ -11,9 +11,6 @@ namespace PSW_Dusan_Markovic.resources.model
         public int UserId { get; set; }
 
         [Required]
-        public string Username { get; set; }
-
-        [Required]
         public string Password { get; set; }
 
         [Required]
@@ -29,14 +26,23 @@ namespace PSW_Dusan_Markovic.resources.model
         [EmailAddress]
         public string Email { get; set; }
 
-        public User(string username, string password, string name, string lastName, string email, UserType userType)
+        public User(string UserName, string password, string name, string lastName, string email, UserType userType)
         {
-            Username = username;
+            this.UserName = UserName;
             Password = password;
             UserType = userType;
             Name = name;
             LastName = lastName;
             Email = email;
+        }
+
+        public void UpdateUser(User user)
+        {
+            UserName = user.UserName;
+            Password = user.Password;
+            Name = user.Name;
+            LastName= user.LastName;
+            Email = user.Email;
         }
     }
 }
