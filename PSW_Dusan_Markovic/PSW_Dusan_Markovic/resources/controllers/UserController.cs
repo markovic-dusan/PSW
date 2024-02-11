@@ -44,7 +44,7 @@ namespace PSW_Dusan_Markovic.resources.controllers
             return Ok(registered);
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public ActionResult<bool> updateUser(User user)
         {
             var status = _service.updateUser(user);

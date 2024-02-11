@@ -6,14 +6,18 @@ using PSW_Dusan_Markovic.resources.service;
 using PSW_Dusan_Markovic.resources.Data;
 
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
 
 [TestClass]
 public class UserServiceTests
 {
+    private Mock<UserManager<User>> _userManagerMock = new Mock<UserManager<User>>(new Mock<IUserStore<User>>().Object, null, null, null, null, null, null, null, null);
+
     [TestMethod]
     public void GetAllUsers_ShouldReturnAllUsers()
     {
         // Arrange
+        _userManagerMock = new Mock<UserManager<User>>(new Mock<IUserStore<User>>().Object, null, null, null, null, null, null, null, null);
         var options = new DbContextOptionsBuilder<YourDbContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
         using (var context = new YourDbContext(options))
         {
@@ -23,7 +27,7 @@ public class UserServiceTests
 
         using (var context = new YourDbContext(options))
         {
-            var userService = new UserService(context);
+            var userService = new UserService(context, _userManagerMock.Object);
 
             // Act
             var result = userService.getAllUsers();
@@ -38,11 +42,11 @@ public class UserServiceTests
     public void RegisterUser_NewUser_SuccessfullyRegistered()
     {
         // Arrange
+        _userManagerMock.Setup(x => x.AddToRoleAsync(It.IsAny<User>(), It.IsAny<string>())).ReturnsAsync(IdentityResult.Success);
         var options = new DbContextOptionsBuilder<YourDbContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
-
         using (var context = new YourDbContext(options))
         {
-            var userService = new UserService(context);
+            var userService = new UserService(context, _userManagerMock.Object);
 
             var newUser = new User("newuser", "password", "Jane", "Doe", "jane22@example.com", UserType.TOURIST);
 
@@ -68,7 +72,7 @@ public class UserServiceTests
             context.Users.Add(new User("existinguser", "password", "John", "Doe", "john@example.com", UserType.TOURIST));
             context.SaveChanges();
 
-            var userService = new UserService(context);
+            var userService = new UserService(context, _userManagerMock.Object);
 
             var existingUser = new User("newuser", "password", "Jane", "Doe", "john@example.com", UserType.TOURIST);
 
@@ -94,7 +98,7 @@ public class UserServiceTests
 
         using (var context = new YourDbContext(options))
         {
-            var userService = new UserService(context);
+            var userService = new UserService(context, _userManagerMock.Object);
 
             var userIdToDelete = 1; 
 
@@ -117,7 +121,7 @@ public class UserServiceTests
 
         using (var context = new YourDbContext(options))
         {
-            var userService = new UserService(context);
+            var userService = new UserService(context, _userManagerMock.Object);
 
             var userIdToDelete = 5; // nepostojeci Id
 
@@ -139,9 +143,9 @@ public class UserServiceTests
             var existingUser = new User("existinguser", "password", "John", "Doe", "john@example.com", UserType.TOURIST);
             context.Users.Add(existingUser);
             context.SaveChanges();
-            var userService = new UserService(context);
+            var userService = new UserService(context, _userManagerMock.Object);
             // Act
-            var updatedUser = new User("newusername", "newpassword", "NewName", "NewLastName", "newemail@example.com", UserType.ADMIN)
+            var updatedUser = new User("newusername", "newpassword", "NewName", "NewLastName", "newemail@example.com", UserType.TOURIST)
             {
                 UserId = existingUser.UserId
             };
@@ -152,7 +156,6 @@ public class UserServiceTests
             Assert.IsNotNull(retrievedUser, "User should be found in the database");
             Assert.AreEqual("newusername", retrievedUser.Username);
             Assert.AreEqual("newpassword", retrievedUser.Password);
-            Assert.AreEqual(UserType.ADMIN, retrievedUser.UserType);
             Assert.AreEqual("NewName", retrievedUser.Name);
             Assert.AreEqual("NewLastName", retrievedUser.LastName);
             Assert.AreEqual("newemail@example.com", retrievedUser.Email);
@@ -171,7 +174,7 @@ public class UserServiceTests
 
         using (var context = new YourDbContext(options))
         {
-            var userService = new UserService(context);
+            var userService = new UserService(context, _userManagerMock.Object);
 
             var nonExistingUserId = 1; // nepostojeci id
 

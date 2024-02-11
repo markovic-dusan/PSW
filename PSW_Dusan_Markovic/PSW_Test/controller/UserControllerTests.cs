@@ -7,12 +7,18 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
+using Microsoft.AspNetCore.Identity;
+using Moq;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 [TestClass]
 public class UserControllerIntegrationTests
 {
     private YourDbContext _dbContext;
     private UserController _userController;
+    private Mock<UserManager<User>> _userManagerMock;
 
     [TestInitialize]
     public void Initialize()
@@ -22,8 +28,18 @@ public class UserControllerIntegrationTests
             .Options;
 
         _dbContext = new YourDbContext(options);
-
-        _userController = new UserController(new UserService(_dbContext));
+        _userManagerMock = new Mock<UserManager<User>>(
+            new Mock<IUserStore<User>>().Object,
+            new Mock<IOptions<IdentityOptions>>().Object,
+            new Mock<IPasswordHasher<User>>().Object,
+            new IUserValidator<User>[0],
+            new IPasswordValidator<User>[0],
+            new Mock<ILookupNormalizer>().Object,
+            new Mock<IdentityErrorDescriber>().Object,
+            new Mock<IServiceProvider>().Object,
+            new Mock<ILogger<UserManager<User>>>().Object
+        ); 
+        _userController = new UserController(new UserService(_dbContext, _userManagerMock.Object));
     }
 
     [TestCleanup]
@@ -89,8 +105,7 @@ public class UserControllerIntegrationTests
     {
         // Arrange
         var newUser = new User("newUser", "password", "FirstName", "LastName", "novi@korisnik.com", UserType.TOURIST);
-
-        // Act
+        _userManagerMock.Setup(x => x.AddToRoleAsync(It.IsAny<User>(), It.IsAny<string>())).ReturnsAsync(IdentityResult.Success);        // Act
         var response =  _userController.registerUser(newUser);
 
         // Assert

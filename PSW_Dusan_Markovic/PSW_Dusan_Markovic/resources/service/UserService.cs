@@ -1,18 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using PSW_Dusan_Markovic.resources.model;
 
 namespace PSW_Dusan_Markovic.resources.service
 {
     public class UserService
     {
-        private readonly YourDbContext _context; 
+        private readonly YourDbContext _context;
+        private readonly UserManager<User> _userManager;
 
-        public UserService(YourDbContext context)
+        public UserService(YourDbContext context, UserManager<User> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
-        //za testove
+        //konstruktor koji se koristi za testove
         public UserService(YourDbContext context, List<User> initialData)
         {
             _context = context;
@@ -39,11 +42,16 @@ namespace PSW_Dusan_Markovic.resources.service
                 {
                     _context.Users.Add(user);
                     _context.SaveChanges();
+                    var result = _userManager.AddToRoleAsync(user, user.UserType.ToString()).Result;
+                    if (!result.Succeeded)
+                    {
+                        successfullyRegistered = false;
+                    }
                 }
-                catch(Exception e){
+                catch (Exception e){
                     successfullyRegistered = false;
+                    Console.WriteLine("ovde puca");
                 }
-
             }
             else
             {
@@ -61,7 +69,6 @@ namespace PSW_Dusan_Markovic.resources.service
             }
             userToUpdate.Username = user.Username;
             userToUpdate.Password = user.Password;
-            userToUpdate.UserType = user.UserType;
             userToUpdate.Name = user.Name;
             userToUpdate.LastName = user.LastName;
             userToUpdate.Email = user.Email;
