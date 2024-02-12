@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using PSW_Dusan_Markovic.resources.model;
+using System.Linq;
 
 namespace PSW_Dusan_Markovic.resources.service
 {
@@ -112,8 +113,47 @@ namespace PSW_Dusan_Markovic.resources.service
             return true;
         }
 
+        public List<Tour> getRecommendedTours(string userId)
+        {
+            var userInterests = _context.UserInterests
+                .Where(ui => ui.UserId == userId)
+                .Select(ui => ui.Interest)
+                .ToList();
 
+            foreach (var ui in userInterests)
+            {
+                Console.WriteLine($"User Interest: {ui}");
+            }
 
+            if (userInterests.Count == 0)
+            {
+                return null;
+            }
+
+            var matchingTours = (from ti in _context.TourInterests
+                                 join t in _context.Tours on ti.TourId equals t.TourId
+                                 where userInterests.Contains(ti.Interest) && t.IsPublished
+                                 select t)
+                                .Distinct()
+                                .ToList();
+
+            return matchingTours;
+        }
+
+        public bool postTour(Tour tour)
+        {
+            foreach(Interest i in tour.Interests)
+            {
+                _context.TourInterests.Add(new TourInterest(tour.TourId, i.InterestValue));
+                _context.SaveChanges();
+            }
+            if (tour.IsPublished)
+            {
+                return false;
+            }
+            _context.Tours.Add(tour);
+            return true;
+        }
 
     }
 }

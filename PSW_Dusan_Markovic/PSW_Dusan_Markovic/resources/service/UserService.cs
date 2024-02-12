@@ -36,10 +36,14 @@ namespace PSW_Dusan_Markovic.resources.service
         public bool registerUser(User user)
         {
             bool successfullyRegistered = true;
-            bool userExists = _context.Users.Any(u => u.Email == user.Email);
+            bool userExists = _context.Users.Any(u => u.Email == user.Email || u.UserName == user.UserName);
             if (!userExists){
                 try
                 {
+                    foreach( Interest i in user.Interests)
+                    {
+                        _context.UserInterests.Add(new UserInterest(user.Id, i.InterestValue));
+                    }
                     _context.Users.Add(user);
                     _context.SaveChanges();
                     var result = _userManager.AddToRoleAsync(user, user.UserType.ToString()).Result;

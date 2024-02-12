@@ -21,6 +21,9 @@ namespace PSW_Dusan_Markovic.resources.model
         public string LastName { get; set; }
 
         [Required]
+        public List<Interest> Interests { get; set; } 
+
+        [Required]
         [EmailAddress]
         public string Email { get; set; }
 
@@ -32,6 +35,18 @@ namespace PSW_Dusan_Markovic.resources.model
             Name = name;
             LastName = lastName;
             Email = email;
+            Interests = new List<Interest>();
+        }
+
+        public User(string UserName, string password, string name, string lastName, string email, UserType userType, List<Interest> interests)
+        {
+            this.UserName = UserName;
+            Password = password;
+            UserType = userType;
+            Name = name;
+            LastName = lastName;
+            Email = email;
+            Interests = interests;
         }
 
         public void updateUser(User user)
@@ -42,5 +57,6 @@ namespace PSW_Dusan_Markovic.resources.model
             LastName= user.LastName;
             Email = user.Email;
         }
+
     }
 }

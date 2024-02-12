@@ -47,15 +47,23 @@ public class UserServiceTests
         using (var context = new YourDbContext(options))
         {
             var userService = new UserService(context, _userManagerMock.Object);
+            Interest interest1 = new Interest(EnumInterest.SPIRITUAL);
+            Interest interest2 = new Interest(EnumInterest.ADVENTURE);
+            context.Interests.Add(interest1);
+            context.Interests.Add(interest2);
+            List<Interest> interests = new List<Interest>();
+            interests.Add(interest1);
+            interests.Add(interest2);
 
-            var newUser = new User("newuser", "password", "Jane", "Doe", "jane22@example.com", UserType.TOURIST);
+            var newUser = new User("newuser2", "password", "Jane", "Doe", "jane22@example.com", UserType.TOURIST, interests);
 
             // Act
             var result = userService.registerUser(newUser);
 
             // Assert
             Assert.IsTrue(result, "User registration should be successful");
-
+            Assert.AreEqual(context.UserInterests.Count(), 2);
+            Assert.AreEqual(context.Users.Find(newUser.Id).Interests.Count, 2);
             var registeredUser = context.Users.FirstOrDefault(u => u.UserName == "newuser");
             Assert.IsNotNull(registeredUser, "User should be saved in the database");
         }

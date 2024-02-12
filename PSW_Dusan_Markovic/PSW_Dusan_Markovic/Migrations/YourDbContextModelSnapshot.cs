@@ -22,6 +22,26 @@ namespace PSW_Dusan_Markovic.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("PSW_Dusan_Markovic.resources.model.Interest", b =>
+                {
+                    b.Property<int>("InterestValue")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TourId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("InterestValue");
+
+                    b.HasIndex("TourId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Interest");
+                });
+
             modelBuilder.Entity("PSW_Dusan_Markovic.resources.model.KeyPoint", b =>
                 {
                     b.Property<int>("PointId")
@@ -190,6 +210,17 @@ namespace PSW_Dusan_Markovic.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("PSW_Dusan_Markovic.resources.model.Interest", b =>
+                {
+                    b.HasOne("PSW_Dusan_Markovic.resources.model.Tour", null)
+                        .WithMany("Interests")
+                        .HasForeignKey("TourId");
+
+                    b.HasOne("PSW_Dusan_Markovic.resources.model.User", null)
+                        .WithMany("Interests")
+                        .HasForeignKey("UserId");
+                });
+
             modelBuilder.Entity("PSW_Dusan_Markovic.resources.model.KeyPoint", b =>
                 {
                     b.HasOne("PSW_Dusan_Markovic.resources.model.Tour", null)
@@ -201,7 +232,14 @@ namespace PSW_Dusan_Markovic.Migrations
 
             modelBuilder.Entity("PSW_Dusan_Markovic.resources.model.Tour", b =>
                 {
+                    b.Navigation("Interests");
+
                     b.Navigation("KeyPoints");
+                });
+
+            modelBuilder.Entity("PSW_Dusan_Markovic.resources.model.User", b =>
+                {
+                    b.Navigation("Interests");
                 });
 #pragma warning restore 612, 618
         }

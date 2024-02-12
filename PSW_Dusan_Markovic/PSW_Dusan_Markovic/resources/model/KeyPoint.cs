@@ -25,5 +25,25 @@ namespace PSW_Dusan_Markovic.resources.model
         [ForeignKey("Tour")]
         public int TourId { get; set; }
 
+        public KeyPoint(string name, string description, double latitude, double longitude, int tourId)
+        {
+            Name = name;
+            Description = description;
+            Latitude = latitude;
+            Longitude = longitude;
+            TourId = tourId;
+            ImageUrl = "";
+        }
+
+        public KeyPoint(string name, string description, double latitude, double longitude, int tourId, string imageUrl)
+        {
+            Name = name;
+            Description = description;
+            Latitude = latitude;
+            Longitude = longitude;
+            TourId = tourId;
+            ImageUrl = imageUrl;
+        }
+
     }
 }

@@ -23,6 +23,9 @@ namespace PSW_Dusan_Markovic.resources.model
         [Required]
         public decimal Price { get; set; }
 
+        [Required]
+        public List<Interest> Interests { get; set; }
+
         public bool IsDraft { get; set; }
 
         public bool IsPublished { get; set; }
@@ -42,6 +45,21 @@ namespace PSW_Dusan_Markovic.resources.model
             IsDraft = true;
             IsPublished = false;
             KeyPoints = new List<KeyPoint>();
+            Interests = new List<Interest>();
+            AuthorId = authorId;
+        }
+
+        public Tour(string name, string description, EnumTourDifficulty difficulty, string category, decimal price, string authorId, List<Interest> interests)
+        {
+            Name = name;
+            Description = description;
+            Difficulty = difficulty;
+            Category = category;
+            Price = price;
+            IsDraft = true;
+            IsPublished = false;
+            KeyPoints = new List<KeyPoint>();
+            Interests = interests;
             AuthorId = authorId;
         }
 
