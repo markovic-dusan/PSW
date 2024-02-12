@@ -23,7 +23,7 @@ namespace PSW_Dusan_Markovic.resources.controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<User> getUserById(int id)
+        public ActionResult<User> getUserById(string id)
         {
             var user = _service.getUserById(id);
             if (user == null)
@@ -56,7 +56,7 @@ namespace PSW_Dusan_Markovic.resources.controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<bool> deleteUser(int id)
+        public ActionResult<bool> deleteUser(string id)
         {
             var status = _service.deleteUser(id);
             if (!status)

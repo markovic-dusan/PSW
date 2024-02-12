@@ -25,6 +25,5 @@ namespace PSW_Dusan_Markovic.resources.model
         [ForeignKey("Tour")]
         public int TourId { get; set; }
 
-        public Tour Tour { get; set; }
     }
 }

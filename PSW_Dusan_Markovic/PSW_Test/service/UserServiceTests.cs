@@ -90,9 +90,10 @@ public class UserServiceTests
         // Arrange
         var options = new DbContextOptionsBuilder<YourDbContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
 
+        User userToDelete = new User("existinguser", "password", "John", "Doe", "john@example.com", UserType.TOURIST);
         using (var context = new YourDbContext(options))
         {
-            context.Users.Add(new User("existinguser", "password", "John", "Doe", "john@example.com", UserType.TOURIST));
+            context.Users.Add(userToDelete);
             context.SaveChanges();
         }
 
@@ -100,7 +101,7 @@ public class UserServiceTests
         {
             var userService = new UserService(context, _userManagerMock.Object);
 
-            var userIdToDelete = 1; 
+            var userIdToDelete = userToDelete.Id; 
 
             // Act
             var result = userService.deleteUser(userIdToDelete);
@@ -123,7 +124,7 @@ public class UserServiceTests
         {
             var userService = new UserService(context, _userManagerMock.Object);
 
-            var userIdToDelete = 5; // nepostojeci Id
+            var userIdToDelete = "5"; // nepostojeci Id
 
             // Act
             var result = userService.deleteUser(userIdToDelete);
@@ -147,12 +148,12 @@ public class UserServiceTests
             // Act
             var updatedUser = new User("newusername", "newpassword", "NewName", "NewLastName", "newemail@example.com", UserType.TOURIST)
             {
-                UserId = existingUser.UserId
+                Id = existingUser.Id
             };
             var result = userService.updateUser(updatedUser);
             // Assert
             Assert.IsTrue(result, "User update should be successful");
-            var retrievedUser = context.Users.Find(existingUser.UserId);
+            var retrievedUser = context.Users.Find(existingUser.Id);
             Assert.IsNotNull(retrievedUser, "User should be found in the database");
             Assert.AreEqual("newusername", retrievedUser.UserName);
             Assert.AreEqual("newpassword", retrievedUser.Password);
@@ -176,10 +177,10 @@ public class UserServiceTests
         {
             var userService = new UserService(context, _userManagerMock.Object);
 
-            var nonExistingUserId = 1; // nepostojeci id
+            var nonExistingUserId = "1"; // nepostojeci id
 
             var updatedUserData = new User("updateduser", "newpassword", "Jane", "Doe", "jane@example.com", UserType.TOURIST);
-            updatedUserData.UserId = nonExistingUserId; 
+            updatedUserData.Id = nonExistingUserId; 
 
             // Act
             var result = userService.updateUser(updatedUserData);

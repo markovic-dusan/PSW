@@ -7,8 +7,6 @@ namespace PSW_Dusan_Markovic.resources.model
 {
     public class User : IdentityUser
     {
-        [Key]
-        public int UserId { get; set; }
 
         [Required]
         public string Password { get; set; }
@@ -36,7 +34,7 @@ namespace PSW_Dusan_Markovic.resources.model
             Email = email;
         }
 
-        public void UpdateUser(User user)
+        public void updateUser(User user)
         {
             UserName = user.UserName;
             Password = user.Password;

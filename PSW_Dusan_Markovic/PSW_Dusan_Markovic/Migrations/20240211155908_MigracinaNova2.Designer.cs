@@ -12,8 +12,8 @@ using PSW_Dusan_Markovic.resources.Data;
 namespace PSW_Dusan_Markovic.Migrations
 {
     [DbContext(typeof(YourDbContext))]
-    [Migration("20240211110813_MigracijaNova")]
-    partial class MigracijaNova
+    [Migration("20240211155908_MigracinaNova2")]
+    partial class MigracinaNova2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -68,8 +68,9 @@ namespace PSW_Dusan_Markovic.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TourId"), 1L, 1);
 
-                    b.Property<int>("AuthorId")
-                        .HasColumnType("int");
+                    b.Property<string>("AuthorId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Category")
                         .IsRequired()
@@ -114,8 +115,9 @@ namespace PSW_Dusan_Markovic.Migrations
                     b.Property<int>("TourId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -124,11 +126,8 @@ namespace PSW_Dusan_Markovic.Migrations
 
             modelBuilder.Entity("PSW_Dusan_Markovic.resources.model.User", b =>
                 {
-                    b.Property<int>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"), 1L, 1);
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
@@ -142,9 +141,6 @@ namespace PSW_Dusan_Markovic.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
-
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -191,20 +187,23 @@ namespace PSW_Dusan_Markovic.Migrations
                     b.Property<int>("UserType")
                         .HasColumnType("int");
 
-                    b.HasKey("UserId");
+                    b.HasKey("Id");
 
                     b.ToTable("Users");
                 });
 
             modelBuilder.Entity("PSW_Dusan_Markovic.resources.model.KeyPoint", b =>
                 {
-                    b.HasOne("PSW_Dusan_Markovic.resources.model.Tour", "Tour")
-                        .WithMany()
+                    b.HasOne("PSW_Dusan_Markovic.resources.model.Tour", null)
+                        .WithMany("KeyPoints")
                         .HasForeignKey("TourId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
 
-                    b.Navigation("Tour");
+            modelBuilder.Entity("PSW_Dusan_Markovic.resources.model.Tour", b =>
+                {
+                    b.Navigation("KeyPoints");
                 });
 #pragma warning restore 612, 618
         }

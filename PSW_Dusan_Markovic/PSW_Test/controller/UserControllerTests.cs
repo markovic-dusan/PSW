@@ -77,20 +77,20 @@ public class UserControllerIntegrationTests
         _dbContext.SaveChanges();
 
         // Act
-        var response =  _userController.getUserById(existingUser.UserId);
+        var response =  _userController.getUserById(existingUser.Id);
 
         // Assert
         Assert.IsInstanceOfType(response.Result, typeof(OkObjectResult));
         var user = (User)((ObjectResult)response.Result).Value;
         Assert.IsNotNull(user);
-        Assert.AreEqual(existingUser.UserId, user.UserId);
+        Assert.AreEqual(existingUser.Id, user.Id);
     }
 
     [TestMethod]
     public async Task GetUserById_NonExistingUser_ReturnsBadRequest()
     {
         // Arrange
-        var nonExistingUserId = 999; //nepostojeci id
+        var nonExistingUserId = "099"; //nepostojeci id
 
         // Act
         var response =  _userController.getUserById(nonExistingUserId);
@@ -141,7 +141,7 @@ public class UserControllerIntegrationTests
         _dbContext.SaveChanges();
 
         var updatedUser = new User("existingUser", "newpassword", "NewFirstName", "NewLastName", "newemail@example.com", UserType.TOURIST);
-        updatedUser.UserId = existingUser.UserId;
+        updatedUser.Id = existingUser.Id;
 
         // Act
         var response = _userController.updateUser(updatedUser);
@@ -175,7 +175,7 @@ public class UserControllerIntegrationTests
         _dbContext.SaveChanges();
 
         // Act
-        var response = _userController.deleteUser(existingUser.UserId);
+        var response = _userController.deleteUser(existingUser.Id);
 
         // Assert
         Assert.IsInstanceOfType(response.Result, typeof(OkObjectResult));
@@ -183,14 +183,14 @@ public class UserControllerIntegrationTests
         Assert.IsTrue(result);
 
         // Verify user is deleted
-        Assert.IsNull(_dbContext.Users.Find(existingUser.UserId));
+        Assert.IsNull(_dbContext.Users.Find(existingUser.Id));
     }
 
     [TestMethod]
     public async Task DeleteUser_NonexistentUser_ReturnsBadRequest()
     {
         // Arrange
-        var nonExistentUserId = 123; // nepostojeci id
+        var nonExistentUserId = "123"; // nepostojeci id
 
         // Act
         var response = _userController.deleteUser(nonExistentUserId);

@@ -28,7 +28,7 @@ namespace PSW_Dusan_Markovic.resources.service
             return _context.Users.ToList();
         }
 
-        public User getUserById(int id)
+        public User getUserById(string id)
         {
             return _context.Users.Find(id);
         }
@@ -50,7 +50,6 @@ namespace PSW_Dusan_Markovic.resources.service
                 }
                 catch (Exception e){
                     successfullyRegistered = false;
-                    Console.WriteLine("ovde puca");
                 }
             }
             else
@@ -62,24 +61,24 @@ namespace PSW_Dusan_Markovic.resources.service
 
         public bool updateUser(User user)
         {
-            var userToUpdate = _context.Users.Find(user.UserId);
+            var userToUpdate = _context.Users.Find(user.Id);
             if (userToUpdate == null)
             {
                 return false;
             }
-            userToUpdate.UpdateUser(user);
+            userToUpdate.updateUser(user);
             _context.SaveChanges();
             return true;
         }
 
-        public bool deleteUser(int id)
+        public bool deleteUser(string id)
         {
             var userToDelete = _context.Users.Find(id);
             if(userToDelete == null)
             {
                 return false;
             }
-            _context.Remove(userToDelete);
+            _context.Users.Remove(userToDelete);
             _context.SaveChanges();
             return true;
         }

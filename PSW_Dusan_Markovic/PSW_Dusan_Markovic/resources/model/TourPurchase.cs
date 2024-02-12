@@ -9,12 +9,19 @@ namespace PSW_Dusan_Markovic.resources.model
         public int Id{ get; set; }
 
         [ForeignKey("User")]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         [ForeignKey("Tour")]
         public int TourId { get; set; }
 
         [Required]
         public DateTime DateOfPurchase{ get; set; }
+
+        public TourPurchase(string userId, int tourId, DateTime dateOfPurchase)
+        {
+            UserId = userId;
+            TourId = tourId;
+            DateOfPurchase = dateOfPurchase;
+        }
     }
 }

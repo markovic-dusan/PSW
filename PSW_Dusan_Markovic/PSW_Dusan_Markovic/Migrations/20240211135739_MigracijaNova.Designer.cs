@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PSW_Dusan_Markovic.resources.Data;
 
@@ -11,9 +12,10 @@ using PSW_Dusan_Markovic.resources.Data;
 namespace PSW_Dusan_Markovic.Migrations
 {
     [DbContext(typeof(YourDbContext))]
-    partial class YourDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240211135739_MigracijaNova")]
+    partial class MigracijaNova
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -113,9 +115,8 @@ namespace PSW_Dusan_Markovic.Migrations
                     b.Property<int>("TourId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -192,16 +193,13 @@ namespace PSW_Dusan_Markovic.Migrations
 
             modelBuilder.Entity("PSW_Dusan_Markovic.resources.model.KeyPoint", b =>
                 {
-                    b.HasOne("PSW_Dusan_Markovic.resources.model.Tour", null)
-                        .WithMany("KeyPoints")
+                    b.HasOne("PSW_Dusan_Markovic.resources.model.Tour", "Tour")
+                        .WithMany()
                         .HasForeignKey("TourId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
 
-            modelBuilder.Entity("PSW_Dusan_Markovic.resources.model.Tour", b =>
-                {
-                    b.Navigation("KeyPoints");
+                    b.Navigation("Tour");
                 });
 #pragma warning restore 612, 618
         }
