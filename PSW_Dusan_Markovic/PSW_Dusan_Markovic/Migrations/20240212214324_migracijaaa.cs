@@ -4,7 +4,7 @@
 
 namespace PSW_Dusan_Markovic.Migrations
 {
-    public partial class Migracija1 : Migration
+    public partial class migracijaaa : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

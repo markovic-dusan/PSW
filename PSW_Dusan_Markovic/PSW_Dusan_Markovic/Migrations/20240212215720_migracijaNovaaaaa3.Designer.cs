@@ -12,8 +12,8 @@ using PSW_Dusan_Markovic.resources.Data;
 namespace PSW_Dusan_Markovic.Migrations
 {
     [DbContext(typeof(YourDbContext))]
-    [Migration("20240212172607_Migracija1")]
-    partial class Migracija1
+    [Migration("20240212215720_migracijaNovaaaaa3")]
+    partial class migracijaNovaaaaa3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,19 +29,9 @@ namespace PSW_Dusan_Markovic.Migrations
                     b.Property<int>("InterestValue")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TourId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("InterestValue");
 
-                    b.HasIndex("TourId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Interest");
+                    b.ToTable("Interests");
                 });
 
             modelBuilder.Entity("PSW_Dusan_Markovic.resources.model.KeyPoint", b =>
@@ -119,6 +109,25 @@ namespace PSW_Dusan_Markovic.Migrations
                     b.HasKey("TourId");
 
                     b.ToTable("Tours");
+                });
+
+            modelBuilder.Entity("PSW_Dusan_Markovic.resources.model.TourInterest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("Interest")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TourId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TourInterests");
                 });
 
             modelBuilder.Entity("PSW_Dusan_Markovic.resources.model.TourPurchase", b =>
@@ -212,15 +221,24 @@ namespace PSW_Dusan_Markovic.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("PSW_Dusan_Markovic.resources.model.Interest", b =>
+            modelBuilder.Entity("PSW_Dusan_Markovic.resources.model.UserInterest", b =>
                 {
-                    b.HasOne("PSW_Dusan_Markovic.resources.model.Tour", null)
-                        .WithMany("Interests")
-                        .HasForeignKey("TourId");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                    b.HasOne("PSW_Dusan_Markovic.resources.model.User", null)
-                        .WithMany("Interests")
-                        .HasForeignKey("UserId");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("Interest")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserInterests");
                 });
 
             modelBuilder.Entity("PSW_Dusan_Markovic.resources.model.KeyPoint", b =>
@@ -234,14 +252,7 @@ namespace PSW_Dusan_Markovic.Migrations
 
             modelBuilder.Entity("PSW_Dusan_Markovic.resources.model.Tour", b =>
                 {
-                    b.Navigation("Interests");
-
                     b.Navigation("KeyPoints");
-                });
-
-            modelBuilder.Entity("PSW_Dusan_Markovic.resources.model.User", b =>
-                {
-                    b.Navigation("Interests");
                 });
 #pragma warning restore 612, 618
         }

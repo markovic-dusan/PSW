@@ -33,33 +33,35 @@ namespace PSW_Dusan_Markovic.resources.service
             return _context.Users.Find(id);
         }
 
-        public bool registerUser(User user)
+        public async Task<bool> registerUser(User user)
         {
             bool successfullyRegistered = true;
             bool userExists = _context.Users.Any(u => u.Email == user.Email || u.UserName == user.UserName);
-            if (!userExists){
-                try
+
+            if (!userExists)
+            {
+                foreach (Interest i in user.Interests)
                 {
-                    foreach( Interest i in user.Interests)
-                    {
-                        _context.UserInterests.Add(new UserInterest(user.Id, i.InterestValue));
-                    }
-                    _context.Users.Add(user);
-                    _context.SaveChanges();
-                    var result = _userManager.AddToRoleAsync(user, user.UserType.ToString()).Result;
-                    if (!result.Succeeded)
-                    {
-                        successfullyRegistered = false;
-                    }
+                    _context.UserInterests.Add(new UserInterest(user.Id, i.InterestValue));
                 }
-                catch (Exception e){
+                _context.SaveChanges();
+
+                var result = await _userManager.CreateAsync(user, user.Password);
+
+                if (result.Succeeded && _userManager != null)
+                {
+                    await _userManager.AddToRoleAsync(user, user.UserType.ToString());
+                }
+                else
+                {
                     successfullyRegistered = false;
                 }
             }
             else
             {
-                successfullyRegistered = false; 
+                successfullyRegistered = false;
             }
+
             return successfullyRegistered;
         }
 

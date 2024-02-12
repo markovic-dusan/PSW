@@ -20,10 +20,20 @@ public class LoginService
 
     public async Task<string> AuthenticateAsync(LoginRequest loginRequest)
     {
+        Console.WriteLine($"Authenticating user: {loginRequest.LoginUserName}");
         var user = await _userManager.FindByNameAsync(loginRequest.LoginUserName);
 
-        if (user == null || !await _userManager.CheckPasswordAsync(user, loginRequest.LoginPassword))
+        if (user == null)
         {
+            Console.WriteLine($"User {loginRequest.LoginUserName} not found.");
+            return null;
+        }
+
+        var passwordCheckResult = await _userManager.CheckPasswordAsync(user, loginRequest.LoginPassword);
+
+        if (!passwordCheckResult)
+        {
+            Console.WriteLine($"Invalid password for user: {loginRequest.LoginUserName}");
             return null;
         }
 

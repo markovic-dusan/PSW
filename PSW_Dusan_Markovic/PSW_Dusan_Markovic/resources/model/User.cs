@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 using System.Data;
+using System.Text.Json.Serialization;
 
 namespace PSW_Dusan_Markovic.resources.model
 {
@@ -20,7 +21,7 @@ namespace PSW_Dusan_Markovic.resources.model
         [Required]
         public string LastName { get; set; }
 
-        [Required]
+        [NotMapped]
         public List<Interest> Interests { get; set; } 
 
         [Required]
@@ -38,6 +39,7 @@ namespace PSW_Dusan_Markovic.resources.model
             Interests = new List<Interest>();
         }
 
+        [JsonConstructor]
         public User(string UserName, string password, string name, string lastName, string email, UserType userType, List<Interest> interests)
         {
             this.UserName = UserName;

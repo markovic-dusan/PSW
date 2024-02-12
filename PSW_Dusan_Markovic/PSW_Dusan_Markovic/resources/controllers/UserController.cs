@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PSW_Dusan_Markovic.resources.model;
 using PSW_Dusan_Markovic.resources.service;
@@ -10,6 +12,8 @@ namespace PSW_Dusan_Markovic.resources.controllers
     public class UserController : ControllerBase
     {
         private readonly UserService _service;
+        private readonly UserManager<User> _userManager;
+
 
         public UserController(UserService service)
         {
@@ -17,12 +21,14 @@ namespace PSW_Dusan_Markovic.resources.controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult<List<User>> getUsers()
         {
             return Ok(_service.getAllUsers());
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public ActionResult<User> getUserById(string id)
         {
             var user = _service.getUserById(id);
@@ -34,17 +40,20 @@ namespace PSW_Dusan_Markovic.resources.controllers
         }
 
         [HttpPost]
-        public ActionResult<bool> registerUser(User user)
+        public async Task<ActionResult<bool>> registerUser(User user)
         {
-            var registered = _service.registerUser(user);
+            var registered = await _service.registerUser(user);
+
             if (!registered)
             {
                 return BadRequest("User could not be registered");
             }
+
             return Ok(registered);
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public ActionResult<bool> updateUser(User user)
         {
             var status = _service.updateUser(user);
@@ -56,6 +65,7 @@ namespace PSW_Dusan_Markovic.resources.controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public ActionResult<bool> deleteUser(string id)
         {
             var status = _service.deleteUser(id);

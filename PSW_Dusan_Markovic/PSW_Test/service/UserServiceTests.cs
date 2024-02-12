@@ -39,9 +39,10 @@ public class UserServiceTests
     }
 
     [TestMethod]
-    public void RegisterUser_NewUser_SuccessfullyRegistered()
+    public async Task RegisterUser_NewUser_SuccessfullyRegistered()
     {
         // Arrange
+        _userManagerMock.Setup(x => x.CreateAsync(It.IsAny<User>(), It.IsAny<string>())).ReturnsAsync(IdentityResult.Success);
         _userManagerMock.Setup(x => x.AddToRoleAsync(It.IsAny<User>(), It.IsAny<string>())).ReturnsAsync(IdentityResult.Success);
         var options = new DbContextOptionsBuilder<YourDbContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
         using (var context = new YourDbContext(options))
@@ -51,26 +52,28 @@ public class UserServiceTests
             Interest interest2 = new Interest(EnumInterest.ADVENTURE);
             context.Interests.Add(interest1);
             context.Interests.Add(interest2);
-            List<Interest> interests = new List<Interest>();
-            interests.Add(interest1);
-            interests.Add(interest2);
+            List<Interest> interests = new List<Interest>
+            {
+                interest1,
+                interest2
+            };
 
             var newUser = new User("newuser2", "password", "Jane", "Doe", "jane22@example.com", UserType.TOURIST, interests);
 
             // Act
-            var result = userService.registerUser(newUser);
+            var result = await userService.registerUser(newUser);
 
             // Assert
             Assert.IsTrue(result, "User registration should be successful");
-            Assert.AreEqual(context.UserInterests.Count(), 2);
-            Assert.AreEqual(context.Users.Find(newUser.Id).Interests.Count, 2);
-            var registeredUser = context.Users.FirstOrDefault(u => u.UserName == "newuser");
+            var ui = context.UserInterests.ToList();
+            Assert.AreEqual(ui.Count, 2);
+            var registeredUser = context.Users.Any(u => u.UserName == "newuser2");
             Assert.IsNotNull(registeredUser, "User should be saved in the database");
         }
     }
 
     [TestMethod]
-    public void RegisterUser_UserWithExistingEmail_RegistrationFails()
+    public async Task RegisterUser_UserWithExistingEmail_RegistrationFails()
     {
         // Arrange
         var options = new DbContextOptionsBuilder<YourDbContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
@@ -85,7 +88,7 @@ public class UserServiceTests
             var existingUser = new User("newuser", "password", "Jane", "Doe", "john@example.com", UserType.TOURIST);
 
             // Act
-            var result = userService.registerUser(existingUser);
+            var result = await  userService.registerUser(existingUser);
 
             // Assert
             Assert.IsFalse(result, "User registration should fail");

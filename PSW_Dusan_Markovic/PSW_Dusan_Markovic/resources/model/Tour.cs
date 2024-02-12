@@ -23,7 +23,7 @@ namespace PSW_Dusan_Markovic.resources.model
         [Required]
         public decimal Price { get; set; }
 
-        [Required]
+        [NotMapped]
         public List<Interest> Interests { get; set; }
 
         public bool IsDraft { get; set; }

@@ -105,12 +105,14 @@ public class UserControllerIntegrationTests
     {
         // Arrange
         var newUser = new User("newUser", "password", "FirstName", "LastName", "novi@korisnik.com", UserType.TOURIST);
+
+        _userManagerMock.Setup(x => x.CreateAsync(It.IsAny<User>(), It.IsAny<string>())).ReturnsAsync(IdentityResult.Success);
         _userManagerMock.Setup(x => x.AddToRoleAsync(It.IsAny<User>(), It.IsAny<string>())).ReturnsAsync(IdentityResult.Success);        // Act
-        var response =  _userController.registerUser(newUser);
+        var response = await _userController.registerUser(newUser);
 
         // Assert
         Assert.IsInstanceOfType(response.Result, typeof(OkObjectResult));
-        var result = (bool)((ObjectResult)response.Result).Value;
+        var result = (bool)((OkObjectResult)response.Result).Value;
         Assert.IsTrue(result);
     }
 
@@ -126,7 +128,7 @@ public class UserControllerIntegrationTests
         var duplicateUser = new User("existingUser", "password", "NewFirstName", "NewLastName", "scepa@scepa.com", UserType.TOURIST);
 
         // Act
-        var response =  _userController.registerUser(duplicateUser);
+        var response = await _userController.registerUser(duplicateUser);
 
         // Assert
         Assert.IsInstanceOfType(response.Result, typeof(BadRequestObjectResult));

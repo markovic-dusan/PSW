@@ -14,9 +14,9 @@ namespace PSW_Dusan_Markovic.resources.service
         }
 
         //za autora vraca sve ture koje je kreirao, a za turistu sve koje je kupio
-        public List<Tour> getUserTours(string id)
+        public List<Tour> getUserTours(string userId)
         {
-            User user = _context.Users.Find(id);
+            User user = _context.Users.Find(userId);
             if (user == null)
             {
                 return null;
@@ -153,6 +153,11 @@ namespace PSW_Dusan_Markovic.resources.service
             }
             _context.Tours.Add(tour);
             return true;
+        }
+
+        public Tour getTourById(int id)
+        {
+            return _context.Tours.Find(id);
         }
 
     }
