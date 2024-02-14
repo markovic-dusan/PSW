@@ -15,26 +15,24 @@ namespace PSW_Dusan_Markovic.resources.controllers
         }
 
         [HttpGet("api/tours")]
-        [Authorize]
-        public ActionResult<List<User>> getAllTours(string userId)
+        //[Authorize]
+        public ActionResult<List<Tour>> getAllTours()
         {
-            return Ok(_tourService.getAllTours);
+            return Ok(_tourService.getAllTours());
         }
 
-        [HttpPost("api/tours/{tourId}/purchase/{userId}")]
-        [Authorize(Roles = "Tourist")]
-        public ActionResult<bool> PurchaseTour(int tourId, string userId)
+        [HttpGet("api/tours/{id}/keypoints")]
+        public ActionResult<KeyPoint> getTourKeypoints(int id)
         {
-            var result = _tourService.purchaseTour(tourId, userId);
-            if (!result)
+            var keypoints = _tourService.getTourKeypoints(id);
+            if (keypoints == null)
             {
-                return BadRequest("Could not purchase tour.");
+                return BadRequest("Tour not found.");
             }
-            return Ok(result);
+            return Ok(keypoints);
         }
 
         [HttpGet("api/tours/{id}")]
-        [Authorize]
         public ActionResult<Tour> getTourById(int id)
         {
             var tour = _tourService.getTourById(id);
@@ -46,7 +44,7 @@ namespace PSW_Dusan_Markovic.resources.controllers
         }
 
         [HttpGet("api/users/{userId}/mytours")]
-        [Authorize]
+        //[Authorize]
         public ActionResult<List<User>> getUserTours(string userId)
         {
             var userTours = _tourService.getUserTours(userId);
@@ -58,7 +56,7 @@ namespace PSW_Dusan_Markovic.resources.controllers
         }
 
         [HttpPost("api/users/{userId}/mytours")]
-        [Authorize(Roles = "Author")]
+        //[Authorize(Roles = "AUTHOR")]
         public ActionResult<bool> postTour(Tour tour)
         {
             var posted = _tourService.postTour(tour);
@@ -69,11 +67,11 @@ namespace PSW_Dusan_Markovic.resources.controllers
             return Ok(posted);
         }
 
-        [HttpPut("api/users/{userId}/mytours")]
-        [Authorize(Roles = "Author")]
-        public ActionResult<bool> updateTour(Tour tour)
+        [HttpPut("api/users/{userId}/mytours/{tourId}")]
+        //[Authorize(Roles = "AUTHOR")]
+        public ActionResult<bool> updateTour(Tour tour, int tourId)
         {
-            var status = _tourService.updateTour(tour);
+            var status = _tourService.updateTour(tour, tourId);
             if (!status)
             {
                 return BadRequest("Tour could not be updated.");
@@ -83,7 +81,7 @@ namespace PSW_Dusan_Markovic.resources.controllers
 
         [HttpPut("api/users/{userId}/mytours/{tourId}/publish")]
         [HttpPut("api/users/{userId}/mydrafttours/{tourId}/publish")]
-        [Authorize(Roles = "Author")]
+        //[Authorize(Roles = "AUTHOR")]
         public ActionResult<bool> publishTour(int tourId)
         {
             var status = _tourService.publishTour(tourId);
@@ -96,7 +94,7 @@ namespace PSW_Dusan_Markovic.resources.controllers
 
         [HttpPut("api/users/{userId}/mytours/{tourId}/archieve")]
         [HttpPut("api/users/{userId}/myactivetours/{tourId}/archieve")]
-        [Authorize(Roles = "Author")]
+        //[Authorize(Roles = "AUTHOR")]
         public ActionResult<bool> archieveTour(int tourId)
         {
             var status = _tourService.archieveTour(tourId);
@@ -108,7 +106,7 @@ namespace PSW_Dusan_Markovic.resources.controllers
         }
 
         [HttpGet("api/users/{userId}/myactivetours")]
-        [Authorize(Roles = "Author")]
+        //[Authorize(Roles = "AUTHOR")]
         public ActionResult<List<User>> getUserActiveTours(string userId)
         {
             var userTours = _tourService.getUserActiveTour(userId);
@@ -120,19 +118,20 @@ namespace PSW_Dusan_Markovic.resources.controllers
         }
 
         [HttpGet("api/users/{userId}/mydrafttours")]
-        [Authorize(Roles = "Author")]
-        public ActionResult<List<User>> getUserDraftTours(string userId)
+        //[Authorize(Roles = "AUTHOR")]
+        public ActionResult<List<Tour>> getUserDraftTours(string userId)
         {
+            Console.WriteLine("*****Controller");
             var userTours = _tourService.getUserDraftTour(userId);
             if (userTours == null)
             {
-                return NotFound();
+                return BadRequest();
             }
             return Ok(userTours);
         }
 
         [HttpGet("api/users/{userId}/recommended")]
-        [Authorize(Roles = "Tourist")]
+        //[Authorize(Roles = "TOURIST")]
         public ActionResult<List<Tour>> getRecommendedTours(string userId)
         {
             var recommendedTours = _tourService.getRecommendedTours(userId);

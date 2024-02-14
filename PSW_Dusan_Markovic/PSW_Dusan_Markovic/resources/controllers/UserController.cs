@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PSW_Dusan_Markovic.resources.model;
 using PSW_Dusan_Markovic.resources.service;
+using System.Security.Claims;
 
 namespace PSW_Dusan_Markovic.resources.controllers
 {
@@ -12,23 +13,35 @@ namespace PSW_Dusan_Markovic.resources.controllers
     public class UserController : ControllerBase
     {
         private readonly UserService _service;
+        private readonly TourService _tourService;
+        private readonly MailService _mailService;
         private readonly UserManager<User> _userManager;
+        private readonly ILogger<UserController> _logger;
 
-
+        public UserController(UserService service, TourService tourService, MailService mailService)
+        {
+            _service = service;
+            _tourService = tourService;
+            _mailService = mailService;
+        }
         public UserController(UserService service)
         {
             _service = service;
         }
+        public UserController(UserService service, ILogger<UserController> logger)
+        {
+            _service = service;
+            _logger = logger;
+        }   
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
         public ActionResult<List<User>> getUsers()
         {
-            return Ok(_service.getAllUsers());
+            return Ok(_service.getAllUsers());            
         }
 
         [HttpGet("{id}")]
-        [Authorize]
+        //[Authorize]
         public ActionResult<User> getUserById(string id)
         {
             var user = _service.getUserById(id);
@@ -53,7 +66,7 @@ namespace PSW_Dusan_Markovic.resources.controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize]
+        //[Authorize]
         public ActionResult<bool> updateUser(User user)
         {
             var status = _service.updateUser(user);
@@ -65,7 +78,7 @@ namespace PSW_Dusan_Markovic.resources.controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize]
+        //[Authorize]
         public ActionResult<bool> deleteUser(string id)
         {
             var status = _service.deleteUser(id);
@@ -74,6 +87,28 @@ namespace PSW_Dusan_Markovic.resources.controllers
                 return BadRequest("User could not be deleted.");
             }
             return Ok(status);
+        }
+
+        [HttpPost("{userId}/purchase")]
+        //[Authorize(Roles = "TOURIST")]
+        public ActionResult<bool> PurchaseTour(List<Tour> purchasedTours, string userId)
+        {
+            var result = true;
+            foreach(var tour in purchasedTours)
+            {
+                result = _tourService.purchaseTour(tour.TourId, userId);
+                if (!result)
+                {
+                    return BadRequest("Could not purchase tours.");
+                }
+            }
+            var user = _service.getUserById(userId);
+            var mailSent = _mailService.sendPurchaseEmail(user.Email, purchasedTours);
+            if (!mailSent.Result)
+            {
+                return BadRequest("Could not confirm purchase.");
+            }
+            return Ok(mailSent.Result);
         }
     }
 

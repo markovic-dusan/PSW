@@ -28,6 +28,8 @@ namespace PSW_Dusan_Markovic.resources.model
         [EmailAddress]
         public string Email { get; set; }
 
+        public User() { }
+
         public User(string UserName, string password, string name, string lastName, string email, UserType userType)
         {
             this.UserName = UserName;

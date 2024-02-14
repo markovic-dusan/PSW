@@ -43,9 +43,9 @@ namespace PSW_Test.service
         {
             //Arrange
             User tempAuthor = new User("newuser", "password", "Jane", "Doe", "jane@example.com", UserType.AUTHOR);
-            Tour tour1 = new Tour("Tura1", "Opis ture 1...", EnumTourDifficulty.HARD, "kategorija", 20, tempAuthor.Id);
-            Tour tour2 = new Tour("Tura2", "Opis ture 2...", EnumTourDifficulty.INTERMEDIATE, "kategorija", 20, tempAuthor.Id);
-            Tour tour3 = new Tour("Tura3", "Opis ture 3...", EnumTourDifficulty.EASY, "kategorija", 20, tempAuthor.Id);            
+            Tour tour1 = new Tour("Tura1", "Opis ture 1...", EnumTourDifficulty.HARD,  20, tempAuthor.Id);
+            Tour tour2 = new Tour("Tura2", "Opis ture 2...", EnumTourDifficulty.INTERMEDIATE,  20, tempAuthor.Id);
+            Tour tour3 = new Tour("Tura3", "Opis ture 3...", EnumTourDifficulty.EASY,  20, tempAuthor.Id);            
             {
                 _context.Users.Add(tempAuthor);
                 _context.Tours.Add(tour1);
@@ -70,9 +70,9 @@ namespace PSW_Test.service
         {
             //Arrange
             User tempAuthor = new User("newuser", "password", "Jane", "Doe", "jane@example.com", UserType.AUTHOR);
-            Tour tour1 = new Tour("Tura1", "Opis ture 1...", EnumTourDifficulty.HARD, "kategorija", 20, tempAuthor.Id);
-            Tour tour2 = new Tour("Tura2", "Opis ture 2...", EnumTourDifficulty.INTERMEDIATE, "kategorija", 20, tempAuthor.Id);
-            Tour tour3 = new Tour("Tura3", "Opis ture 3...", EnumTourDifficulty.EASY, "kategorija", 20, tempAuthor.Id);            
+            Tour tour1 = new Tour("Tura1", "Opis ture 1...", EnumTourDifficulty.HARD, 20, tempAuthor.Id);
+            Tour tour2 = new Tour("Tura2", "Opis ture 2...", EnumTourDifficulty.INTERMEDIATE,  20, tempAuthor.Id);
+            Tour tour3 = new Tour("Tura3", "Opis ture 3...", EnumTourDifficulty.EASY,  20, tempAuthor.Id);            
             {
                 _context.Users.Add(tempAuthor);
                 _context.Tours.Add(tour1);
@@ -98,9 +98,9 @@ namespace PSW_Test.service
         {
             //Arrange
             User tempAuthor = new User("newuser", "password", "Jane", "Doe", "jane@example.com", UserType.AUTHOR);
-            Tour tour1 = new Tour("Tura1", "Opis ture 1...", EnumTourDifficulty.HARD, "kategorija", 20, tempAuthor.Id);
-            Tour tour2 = new Tour("Tura2", "Opis ture 2...", EnumTourDifficulty.INTERMEDIATE, "kategorija", 20, tempAuthor.Id);
-            Tour tour3 = new Tour("Tura3", "Opis ture 3...", EnumTourDifficulty.EASY, "kategorija", 20, tempAuthor.Id);            
+            Tour tour1 = new Tour("Tura1", "Opis ture 1...", EnumTourDifficulty.HARD,  20, tempAuthor.Id);
+            Tour tour2 = new Tour("Tura2", "Opis ture 2...", EnumTourDifficulty.INTERMEDIATE,  20, tempAuthor.Id);
+            Tour tour3 = new Tour("Tura3", "Opis ture 3...", EnumTourDifficulty.EASY,  20, tempAuthor.Id);            
             {
                 _context.Users.Add(tempAuthor);
                 _context.Tours.Add(tour1);
@@ -127,9 +127,9 @@ namespace PSW_Test.service
         {
             //Arrange
             User tempAuthor = new User("newuser", "password", "Jane", "Doe", "jane@example.com", UserType.AUTHOR);
-            Tour tour1 = new Tour("Tura1", "Opis ture 1...", EnumTourDifficulty.HARD, "kategorija", 20, tempAuthor.Id);
-            Tour tour2 = new Tour("Tura2", "Opis ture 2...", EnumTourDifficulty.INTERMEDIATE, "kategorija", 20, tempAuthor.Id);
-            Tour tour3 = new Tour("Tura3", "Opis ture 3...", EnumTourDifficulty.EASY, "kategorija", 20, tempAuthor.Id);            
+            Tour tour1 = new Tour("Tura1", "Opis ture 1...", EnumTourDifficulty.HARD,  20, tempAuthor.Id);
+            Tour tour2 = new Tour("Tura2", "Opis ture 2...", EnumTourDifficulty.INTERMEDIATE,  20, tempAuthor.Id);
+            Tour tour3 = new Tour("Tura3", "Opis ture 3...", EnumTourDifficulty.EASY,  20, tempAuthor.Id);            
             {
                 _context.Users.Add(tempAuthor);
                 _context.Tours.Add(tour1);
@@ -158,9 +158,9 @@ namespace PSW_Test.service
             //Arrange
             User tempTourist = new User("newuser", "password", "Jane", "Doe", "jane@example.com", UserType.TOURIST);
             User tempAuthor = new User("newuser2", "password", "Jane", "Doe", "jane2@example.com", UserType.AUTHOR);
-            Tour tour1 = new Tour("Tura1", "Opis ture 1...", EnumTourDifficulty.HARD, "kategorija", 20, tempAuthor.Id);
-            Tour tour2 = new Tour("Tura2", "Opis ture 2...", EnumTourDifficulty.INTERMEDIATE, "kategorija", 20, tempAuthor.Id);
-            Tour tour3 = new Tour("Tura3", "Opis ture 3...", EnumTourDifficulty.EASY, "kategorija", 20, tempAuthor.Id);            
+            Tour tour1 = new Tour("Tura1", "Opis ture 1...", EnumTourDifficulty.HARD,  20, tempAuthor.Id);
+            Tour tour2 = new Tour("Tura2", "Opis ture 2...", EnumTourDifficulty.INTERMEDIATE,  20, tempAuthor.Id);
+            Tour tour3 = new Tour("Tura3", "Opis ture 3...", EnumTourDifficulty.EASY,  20, tempAuthor.Id);            
             {
                 _context.Users.Add(tempTourist);
                 _context.Tours.Add(tour1);
@@ -189,9 +189,9 @@ namespace PSW_Test.service
             //Arrange
             User tempTourist = new User("newuser", "password", "Jane", "Doe", "jane@example.com", UserType.TOURIST);
             User tempAuthor = new User("newuser2", "password", "Jane", "Doe", "jane2@example.com", UserType.AUTHOR);
-            Tour tour1 = new Tour("Tura1", "Opis ture 1...", EnumTourDifficulty.HARD, "kategorija", 20, tempAuthor.Id);
-            Tour tour2 = new Tour("Tura2", "Opis ture 2...", EnumTourDifficulty.INTERMEDIATE, "kategorija", 20, tempAuthor.Id);
-            Tour tour3 = new Tour("Tura3", "Opis ture 3...", EnumTourDifficulty.EASY, "kategorija", 20, tempAuthor.Id);            
+            Tour tour1 = new Tour("Tura1", "Opis ture 1...", EnumTourDifficulty.HARD,  20, tempAuthor.Id);
+            Tour tour2 = new Tour("Tura2", "Opis ture 2...", EnumTourDifficulty.INTERMEDIATE,  20, tempAuthor.Id);
+            Tour tour3 = new Tour("Tura3", "Opis ture 3...", EnumTourDifficulty.EASY,  20, tempAuthor.Id);            
             {
                 _context.Users.Add(tempTourist);
                 _context.Tours.Add(tour1);
@@ -218,9 +218,9 @@ namespace PSW_Test.service
             //Arrange
             User tempTourist = new User("newuser", "password", "Jane", "Doe", "jane@example.com", UserType.TOURIST);
             User tempAuthor = new User("newuser2", "password", "Jane", "Doe", "jane2@example.com", UserType.AUTHOR);
-            Tour tour1 = new Tour("Tura1", "Opis ture 1...", EnumTourDifficulty.HARD, "kategorija", 20, tempAuthor.Id);
-            Tour tour2 = new Tour("Tura2", "Opis ture 2...", EnumTourDifficulty.INTERMEDIATE, "kategorija", 20, tempAuthor.Id);
-            Tour tour3 = new Tour("Tura3", "Opis ture 3...", EnumTourDifficulty.EASY, "kategorija", 20, tempAuthor.Id);            
+            Tour tour1 = new Tour("Tura1", "Opis ture 1...", EnumTourDifficulty.HARD,  20, tempAuthor.Id);
+            Tour tour2 = new Tour("Tura2", "Opis ture 2...", EnumTourDifficulty.INTERMEDIATE,  20, tempAuthor.Id);
+            Tour tour3 = new Tour("Tura3", "Opis ture 3...", EnumTourDifficulty.EASY,  20, tempAuthor.Id);            
             {
                 _context.Users.Add(tempTourist);
                 _context.Tours.Add(tour1);
@@ -242,7 +242,7 @@ namespace PSW_Test.service
             //Arrange
             User tempTourist = new User("newuser", "password", "Jane", "Doe", "jane@example.com", UserType.TOURIST);
             User tempAuthor = new User("newuser2", "password", "Jane", "Doe", "jane2@example.com", UserType.AUTHOR);
-            Tour tour1 = new Tour("Tura1", "Opis ture 1...", EnumTourDifficulty.HARD, "kategorija", 20, tempAuthor.Id);            
+            Tour tour1 = new Tour("Tura1", "Opis ture 1...", EnumTourDifficulty.HARD,  20, tempAuthor.Id);            
             {
                 _context.Users.Add(tempTourist);
                 tour1.IsPublished = true;
@@ -256,7 +256,8 @@ namespace PSW_Test.service
                 var result = tourService.archieveTour(tour1.TourId);
                 //Assert
                 Assert.AreEqual(true, result);
-                Assert.AreEqual(_context.Tours.Find(tour1.TourId).IsDraft, true);
+                Assert.AreEqual(_context.Tours.Find(tour1.TourId).IsArchieved, true);
+                Assert.AreEqual(_context.Tours.Find(tour1.TourId).IsDraft, false);
                 Assert.AreEqual(_context.Tours.Find(tour1.TourId).IsPublished, false);
             }
         }
@@ -267,7 +268,7 @@ namespace PSW_Test.service
             //Arrange
             User tempTourist = new User("newuser", "password", "Jane", "Doe", "jane@example.com", UserType.TOURIST);
             User tempAuthor = new User("newuser2", "password", "Jane", "Doe", "jane2@example.com", UserType.AUTHOR);
-            Tour tour1 = new Tour("Tura1", "Opis ture 1...", EnumTourDifficulty.HARD, "kategorija", 20, tempAuthor.Id);            
+            Tour tour1 = new Tour("Tura1", "Opis ture 1...", EnumTourDifficulty.HARD,  20, tempAuthor.Id);            
             {
                 _context.Users.Add(tempTourist);
                 KeyPoint kp1 = new KeyPoint("keyPoint1", "desc1", 1, 2, tour1.TourId);
@@ -297,7 +298,7 @@ namespace PSW_Test.service
             //Arrange
             User tempTourist = new User("newuser", "password", "Jane", "Doe", "jane@example.com", UserType.TOURIST);
             User tempAuthor = new User("newuser2", "password", "Jane", "Doe", "jane2@example.com", UserType.AUTHOR);
-            Tour tour1 = new Tour("Tura1", "Opis ture 1...", EnumTourDifficulty.HARD, "kategorija", 20, tempAuthor.Id);            
+            Tour tour1 = new Tour("Tura1", "Opis ture 1...", EnumTourDifficulty.HARD,  20, tempAuthor.Id);            
             {
                 _context.Users.Add(tempTourist);
                 KeyPoint kp1 = new KeyPoint("keyPoint1", "desc1", 1, 2, tour1.TourId);
@@ -332,9 +333,9 @@ namespace PSW_Test.service
             interests2.Add(interest1);
             User tempTourist = new User("newuser", "password", "Jane", "Doe", "jane@example.com", UserType.TOURIST, interests1);
             User tempAuthor = new User("newuser2", "password", "Jane", "Doe", "jane2@example.com", UserType.AUTHOR);
-            Tour tour1 = new Tour("Tura1", "Opis ture 1...", EnumTourDifficulty.HARD, "kategorija", 20, tempAuthor.Id, interests1);
-            Tour tour2 = new Tour("Tura2", "Opis ture 2...", EnumTourDifficulty.HARD, "kategorija", 20, tempAuthor.Id, interests2);
-            Tour tour3 = new Tour("Tura3", "Opis ture 3...", EnumTourDifficulty.HARD, "kategorija", 20, tempAuthor.Id);
+            Tour tour1 = new Tour("Tura1", "Opis ture 1...", EnumTourDifficulty.HARD,  20, tempAuthor.Id, interests1);
+            Tour tour2 = new Tour("Tura2", "Opis ture 2...", EnumTourDifficulty.HARD,  20, tempAuthor.Id, interests2);
+            Tour tour3 = new Tour("Tura3", "Opis ture 3...", EnumTourDifficulty.HARD,  20, tempAuthor.Id);
             tour1.IsPublished = true;
             tour2.IsPublished = true;
             tour3.IsPublished = true;            
@@ -373,7 +374,7 @@ namespace PSW_Test.service
             interests1.Add(interest1);
             interests1.Add(interest2);
             User tempAuthor = new User("newuser2", "password", "Jane", "Doe", "jane2@example.com", UserType.AUTHOR);
-            Tour tour1 = new Tour("Tura1", "Opis ture 1...", EnumTourDifficulty.HARD, "kategorija", 20, tempAuthor.Id, interests1);                        
+            Tour tour1 = new Tour("Tura1", "Opis ture 1...", EnumTourDifficulty.HARD,  20, tempAuthor.Id, interests1);                        
             {
                 _context.Interests.Add(interest1);
                 _context.Interests.Add(interest2);
@@ -402,7 +403,7 @@ namespace PSW_Test.service
             interests1.Add(interest1);
             interests1.Add(interest2);
             User tempAuthor = new User("newuser2", "password", "Jane", "Doe", "jane2@example.com", UserType.AUTHOR);
-            Tour tour1 = new Tour("Tura1", "Opis ture 1...", EnumTourDifficulty.HARD, "kategorija", 20, tempAuthor.Id, interests1);
+            Tour tour1 = new Tour("Tura1", "Opis ture 1...", EnumTourDifficulty.HARD,  20, tempAuthor.Id, interests1);
             {
                 _context.Interests.Add(interest1);
                 _context.Interests.Add(interest2);
@@ -412,7 +413,7 @@ namespace PSW_Test.service
                 //Act
                 tourService.postTour(tour1);
                 tour1.Name = "Nova tura";
-                var result = tourService.updateTour(tour1);
+                var result = tourService.updateTour(tour1, tour1.TourId);
                 //Assert
                 Assert.AreEqual(true, result);
                 var t = _context.Tours.Find(tour1.TourId);
@@ -429,8 +430,8 @@ namespace PSW_Test.service
             interests1.Add(interest1);
             interests1.Add(interest2);
             User tempAuthor = new User("newuser2", "password", "Jane", "Doe", "jane2@example.com", UserType.AUTHOR);
-            Tour tour1 = new Tour("Tura1", "Opis ture 1...", EnumTourDifficulty.HARD, "kategorija", 20, tempAuthor.Id, interests1);
-            Tour tour2 = new Tour("Tura2", "Opis ture 1...", EnumTourDifficulty.HARD, "kategorija", 20, tempAuthor.Id, interests1);         
+            Tour tour1 = new Tour("Tura1", "Opis ture 1...", EnumTourDifficulty.HARD,  20, tempAuthor.Id, interests1);
+            Tour tour2 = new Tour("Tura2", "Opis ture 1...", EnumTourDifficulty.HARD,  20, tempAuthor.Id, interests1);         
             {
                 _context.Interests.Add(interest1);
                 _context.Interests.Add(interest2);
@@ -440,7 +441,7 @@ namespace PSW_Test.service
                 //Act
                 tourService.postTour(tour1);
                 tour1.Name = "Nova tura";
-                var result = tourService.updateTour(tour2);
+                var result = tourService.updateTour(tour2, tour2.TourId);
                 //Assert
                 Assert.AreEqual(false, result);
 

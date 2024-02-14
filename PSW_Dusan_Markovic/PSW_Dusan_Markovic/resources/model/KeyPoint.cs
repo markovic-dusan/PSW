@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace PSW_Dusan_Markovic.resources.model
 {
@@ -34,7 +35,7 @@ namespace PSW_Dusan_Markovic.resources.model
             TourId = tourId;
             ImageUrl = "";
         }
-
+        [JsonConstructor]
         public KeyPoint(string name, string description, double latitude, double longitude, int tourId, string imageUrl)
         {
             Name = name;

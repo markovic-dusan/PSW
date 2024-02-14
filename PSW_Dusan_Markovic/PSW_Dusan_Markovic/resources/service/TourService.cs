@@ -58,6 +58,7 @@ namespace PSW_Dusan_Markovic.resources.service
             User user = _context.Users.Find(userId);
             if (user == null)
             {
+                Console.WriteLine("*****User not found");
                 return null;
             }
             return _context.Tours.Where(t => t.AuthorId == userId && t.IsDraft).ToList();
@@ -92,7 +93,8 @@ namespace PSW_Dusan_Markovic.resources.service
         public bool publishTour(int tourId)
         {
             var tourToPublish = _context.Tours.Find(tourId);
-            if (tourToPublish == null || tourToPublish.KeyPoints.Count < 2)
+            var keyPoints = _context.KeyPoints.Where(kp => kp.TourId == tourId).ToList();
+            if (tourToPublish == null || keyPoints.Count < 2)
             {
                 return false;
             }
@@ -101,9 +103,9 @@ namespace PSW_Dusan_Markovic.resources.service
             return true;
         }
 
-        public bool updateTour(Tour tour)
+        public bool updateTour(Tour tour, int tourId)
         {
-            var tourToUpdate = _context.Tours.Find(tour.TourId);
+            var tourToUpdate = _context.Tours.Find(tourId);
             if(tourToUpdate == null)
             {
                 return false;
@@ -142,22 +144,34 @@ namespace PSW_Dusan_Markovic.resources.service
 
         public bool postTour(Tour tour)
         {
-            foreach(Interest i in tour.Interests)
-            {
-                _context.TourInterests.Add(new TourInterest(tour.TourId, i.InterestValue));
-                _context.SaveChanges();
-            }
             if (tour.IsPublished)
             {
                 return false;
             }
             _context.Tours.Add(tour);
+            _context.SaveChanges();
+            foreach (Interest i in tour.Interests)
+            {
+                _context.TourInterests.Add(new TourInterest(tour.TourId, i.InterestValue));
+            }
+            _context.SaveChanges();
             return true;
         }
 
         public Tour getTourById(int id)
         {
             return _context.Tours.Find(id);
+        }
+
+        public List<KeyPoint> getTourKeypoints(int tourId)
+        {
+            var tour = _context.Tours.Find(tourId);
+            if (tour == null)
+            {
+                return null;
+            }
+            var keypoints = _context.KeyPoints.Where(kp => kp.TourId == tourId).ToList();
+            return keypoints;
         }
 
     }
