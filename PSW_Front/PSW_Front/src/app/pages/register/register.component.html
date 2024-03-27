@@ -1,0 +1,40 @@
+<div class="register-container">
+  <h2>Register</h2>
+  <form (submit)="onSubmit()">
+    <div class="form-group">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required [(ngModel)]="userData.userName">
+    </div>
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required [(ngModel)]="userData.password">
+    </div>
+    <div class="form-group">
+      <label for="confirmPassword">Confirm Password:</label>
+      <input type="password" id="confirmPassword" name="confirmPassword" required [(ngModel)]="confirmPassword">
+    </div>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required [(ngModel)]="userData.email">
+    </div>
+    <div class="form-group">
+      <label for="firstName">First Name:</label>
+      <input type="text" id="firstName" name="firstName" required [(ngModel)]="userData.name">
+    </div>
+    <div class="form-group">
+      <label for="lastName">Last Name:</label>
+      <input type="text" id="lastName" name="lastName" required [(ngModel)]="userData.lastName">
+    </div>
+    <div class="form-group">
+      <label>Interests:</label><br>
+      <div class="interests-container">
+        <div *ngFor="let interest of interests; let i = index" class="interest">
+          <label>{{interest}}</label>
+          <input type="checkbox" [id]="interest" name="interests" 
+            [checked]="selectedInterests.includes(i)" (change)="toggleInterest(i)">
+        </div>
+      </div>
+    </div>
+    <button type="submit">Register</button>
+  </form>
+</div>

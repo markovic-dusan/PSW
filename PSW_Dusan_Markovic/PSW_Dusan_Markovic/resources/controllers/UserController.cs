@@ -18,21 +18,12 @@ namespace PSW_Dusan_Markovic.resources.controllers
         private readonly UserManager<User> _userManager;
         private readonly ILogger<UserController> _logger;
 
-        public UserController(UserService service, TourService tourService, MailService mailService)
+        public UserController(UserService service, TourService tourService) //, MailService mailService
         {
             _service = service;
             _tourService = tourService;
-            _mailService = mailService;
+            //_mailService = mailService;
         }
-        public UserController(UserService service)
-        {
-            _service = service;
-        }
-        public UserController(UserService service, ILogger<UserController> logger)
-        {
-            _service = service;
-            _logger = logger;
-        }   
 
         [HttpGet]
         public ActionResult<List<User>> getUsers()
@@ -103,12 +94,12 @@ namespace PSW_Dusan_Markovic.resources.controllers
                 }
             }
             var user = _service.getUserById(userId);
-            var mailSent = _mailService.sendPurchaseEmail(user.Email, purchasedTours);
-            if (!mailSent.Result)
-            {
-                return BadRequest("Could not confirm purchase.");
-            }
-            return Ok(mailSent.Result);
+            //var mailSent = _mailService.sendPurchaseEmail(user.Email, purchasedTours);
+            //if (!mailSent.Result)
+            //{
+            //    return BadRequest("Could not confirm purchase.");
+            //}
+            return Ok();
         }
     }
 

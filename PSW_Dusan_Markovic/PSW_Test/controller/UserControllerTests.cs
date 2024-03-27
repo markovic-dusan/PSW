@@ -39,7 +39,7 @@ public class UserControllerIntegrationTests
             new Mock<IServiceProvider>().Object,
             new Mock<ILogger<UserManager<User>>>().Object
         ); 
-        _userController = new UserController(new UserService(_dbContext, _userManagerMock.Object));
+        _userController = new UserController(new UserService(_dbContext, _userManagerMock.Object), new TourService(_dbContext));
     }
 
     [TestCleanup]
