@@ -46,13 +46,11 @@ namespace PSW_Dusan_Markovic.resources.controllers
         [HttpPost]
         public async Task<ActionResult<bool>> registerUser(User user)
         {
-            var registered = await _service.registerUser(user);
-
+            var registered = await _service.registerUser(user);            
             if (!registered)
             {
                 return BadRequest("User could not be registered");
             }
-
             return Ok(registered);
         }
 

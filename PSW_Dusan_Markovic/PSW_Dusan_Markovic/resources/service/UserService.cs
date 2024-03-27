@@ -33,6 +33,11 @@ namespace PSW_Dusan_Markovic.resources.service
             return _context.Users.Find(id);
         }
 
+        public User getUserByUsername(string username)
+        {
+            return _context.Users.FirstOrDefault(u => u.UserName == username);
+        }
+
         public async Task<bool> registerUser(User user)
         {
             bool successfullyRegistered = true;

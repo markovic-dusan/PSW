@@ -23,6 +23,8 @@ public class LoginService
         Console.WriteLine($"Authenticating user: {loginRequest.LoginUserName}");
         var user = await _userManager.FindByNameAsync(loginRequest.LoginUserName);
 
+        
+
         if (user == null)
         {
             Console.WriteLine($"User {loginRequest.LoginUserName} not found.");
