@@ -220,6 +220,9 @@ namespace PSW_Dusan_Markovic.Migrations
                     b.Property<int>("Difficulty")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsArchieved")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsDraft")
                         .HasColumnType("bit");
 

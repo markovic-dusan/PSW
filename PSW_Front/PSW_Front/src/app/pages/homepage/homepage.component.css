@@ -1,0 +1,136 @@
+.container {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu-buttons {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.tour-btn {
+  padding: 10px 20px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  outline: none;
+  font-size: 16px;
+}
+
+.left-btn {
+  margin-right: 10px;
+}
+
+.right-btn {
+  margin-left: 10px;
+}
+
+.tour-btn.selected {
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 5px;
+}
+
+.tour-list {
+  width: 60%;
+}
+
+.tour-item {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tour-item:hover {
+  background-color: #f0f0f0;
+}
+
+.tour-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tour-header h3 {
+  margin: 0;
+}
+
+.tour-description {
+  margin-top: 5px;
+}
+
+.tour-interests {
+  margin-top: 10px;
+}
+
+.tour-interests ul {
+  padding: 0;
+  list-style-type: none;
+}
+
+.tour-interests li {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.add-to-cart-btn {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.details {
+  width: 35%;
+  border: 1px solid #ccc;
+  padding: 20px;
+}
+
+.tour-details-content {
+  margin-top: 20px;
+}
+
+.tour-interests ul li {
+  display: inline-block;
+  padding: 5px 10px;
+  margin-right: 5px;
+  border: 2px solid transparent;
+  border-radius: 5px;
+}
+
+.tour-interests ul li:hover {
+  border-color: black;
+}
+
+.filter-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px; /* Dodajemo razmak ispod dugmića filtera */
+}
+
+.filter-buttons h2 {
+  margin-right: 10px; /* Razmak između dugmića filtera i naslova */
+}
+
+.logout-btn,
+.profile-btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px 16px;
+  margin-right: 10px;
+}
+
+
+.logout-btn:hover,
+.profile-btn:hover {
+  background-color: #f0f0f0;
+}

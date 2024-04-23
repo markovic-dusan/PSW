@@ -30,6 +30,7 @@ namespace PSW_Dusan_Markovic.resources.model
 
         public bool IsPublished { get; set; }
 
+        [JsonIgnore]
         public List<KeyPoint> KeyPoints { get; set; }
 
         [ForeignKey("Author")]

@@ -26,8 +26,9 @@ export class LoginComponent implements OnInit {
     if(this.username != '' && this.password != ''){
       this.loginService.login(this.username, this.password).subscribe((data: any) =>{
         if(data){
+          console.log('successful login');
           this.successfulLogin(data);
-          //window.location.href = '/homepage'
+          window.location.href = '/homepage'
         }
       }, (err) => {
         alert("Wrong credentials");

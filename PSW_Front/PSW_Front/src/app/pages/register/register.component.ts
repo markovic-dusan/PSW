@@ -3,6 +3,7 @@ import { Component, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { User } from '../../model/User';
 import { NgFor } from '@angular/common';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -22,7 +23,7 @@ export class RegisterComponent {
   interests: string[] = ['ADVENTURE', 'CHILL', 'SPIRITUAL', 'SIGHTSEEING'];
   selectedInterests: number[] = [];
 
-  constructor(private userService: UserService) { }
+  constructor(private router: Router, private userService: UserService) { }
   
   toggleInterest(interestIndex: number) {
     const index = this.selectedInterests.indexOf(interestIndex);
@@ -39,6 +40,7 @@ export class RegisterComponent {
     this.userService.registerUser(this.userData)
       .subscribe(response => {
         console.log(response);
+        this.router.navigate(['/login']); 
       }, error => {
         console.error(error);
       });

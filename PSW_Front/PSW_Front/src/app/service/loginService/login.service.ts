@@ -23,6 +23,7 @@ export class LoginService {
     localStorage.setItem('jwt', loginInfo.token);
     localStorage.setItem('username', loginInfo.username);
     localStorage.setItem('userRole', loginInfo.role);
+    localStorage.setItem('userId', loginInfo.userId)
   }
 
   getHeaders(){

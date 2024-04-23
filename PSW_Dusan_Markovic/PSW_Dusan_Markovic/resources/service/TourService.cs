@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Net.Http.Headers;
 using PSW_Dusan_Markovic.resources.model;
 using System.Linq;
 
@@ -40,7 +41,9 @@ namespace PSW_Dusan_Markovic.resources.service
 
         public List<Tour> getAllTours()
         {
-            return _context.Tours.Where(t => t.IsPublished).ToList();
+            List<Tour> tours = _context.Tours.Where(t => t.IsPublished).ToList();
+            getTourInterests(tours);
+            return tours;
         }
 
         public List<Tour> getUserActiveTour(string userId)
@@ -50,7 +53,9 @@ namespace PSW_Dusan_Markovic.resources.service
             {
                 return null;
             }
-            return _context.Tours.Where(t => t.AuthorId == userId && t.IsPublished).ToList();
+            List<Tour> tours = _context.Tours.Where(t => t.AuthorId == userId && t.IsPublished).ToList();
+            getTourInterests(tours);
+            return tours;
         }
 
         public List<Tour> getUserDraftTour(string userId)
@@ -172,6 +177,21 @@ namespace PSW_Dusan_Markovic.resources.service
             }
             var keypoints = _context.KeyPoints.Where(kp => kp.TourId == tourId).ToList();
             return keypoints;
+        }
+
+        public void getTourInterests(List<Tour> tours)
+        {
+            foreach (var tour in tours)
+            {
+                List<TourInterest> tourInterests = _context.TourInterests.Where(ti => ti.TourId == tour.TourId).ToList();
+                List<Interest> interests = new List<Interest>();
+                foreach(var interest in tourInterests)
+                {
+                    interests.Add(new Interest(interest.Interest));
+                }
+                tour.Interests = interests;
+            }
+
         }
 
     }

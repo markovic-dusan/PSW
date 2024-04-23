@@ -1,0 +1,44 @@
+<button class="tour-btn left-btn" [class.selected]="allToursSelected" (click)="showAllTours()">All Tours</button>
+<button class="tour-btn right-btn" [class.selected]="!allToursSelected" (click)="showMyTours()">My Tours</button>
+
+<div class="container">
+  <div class="menu-buttons">
+    <button class="logout-btn" (click)="logout()">Log Out</button>
+    <button class="profile-btn">Profile</button>
+  </div>
+
+
+  <!-- Lista -->
+  <div class="tour-list">
+    <h2>Tours</h2>
+    <div class="filter-buttons" *ngIf="isAuthor && !allToursSelected">
+      <button class="tour-btn" [class.selected]="filter === 'isDraft'" (click)="setFilter('isDraft')">Drafts</button>
+    <button class="tour-btn" [class.selected]="filter === 'isArchieved'" (click)="setFilter('isArchieved')">Archieved</button>
+    <button class="tour-btn" [class.selected]="filter === 'isPublished'" (click)="setFilter('isPublished')">Published</button>
+  </div>
+  <div *ngFor="let tour of filteredTours" class="tour-item" (click)="showDetails(tour)">
+    <div class="tour-header">
+      <h3>{{ tour.name }}</h3>
+      <p class="tour-difficulty">Difficulty: {{ tour.difficulty }}</p>
+      <p class="tour-price">Price: ${{ tour.price }}</p>
+    </div>
+    <p class="tour-description">{{ tour.description }}</p>
+    <div class="tour-attribute" *ngIf="isAuthor && (this.filter === '' || tour[filter])">
+      <button *ngIf="tour.isDraft  && !allToursSelected" class="publish-btn" (click)="publishTour(tour)">Publish</button>
+      <button *ngIf="tour.isDraft  && !allToursSelected" class="archive-btn" (click)="archiveTour(tour)">Archive</button>
+      <button *ngIf="tour.isPublished  && !allToursSelected" class="archive-btn" (click)="archiveTour(tour)">Archive</button>
+    </div>
+    <button class="add-to-cart-btn" *ngIf="isTourist()" (click)="addToCart(tour)">Add to Cart</button>
+  </div>
+  </div>
+  
+  <!-- Detalji -->
+  <div class="details" *ngIf="selectedTour">
+    <h2>Tour Details</h2>
+    <div class="tour-details-content">
+      <h3>{{ selectedTour.name }}</h3>
+      <p>{{ selectedTour.description }}</p>
+      <!-- Ostali detalji -->
+    </div>
+  </div>
+</div>
