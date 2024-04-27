@@ -31,4 +31,8 @@ export class TourService {
     console.log('Archieve tour url: ' ,url)
     return this.http.put(url, {})
   }
+
+  createTour(tour: Tour): Observable<any>{
+    return this.http.post<any>(this.localhost+this.userApi+localStorage.getItem('userId')+'/mytours', tour)
+  } 
 }

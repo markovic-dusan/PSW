@@ -9,7 +9,7 @@ export class Tour {
       public isDraft: Boolean,
       public isArchieved: Boolean,
       public isPublished: Boolean,
-      public authorId: string,
+      public authorId: string | null,
     ) {}
   }
   

@@ -1,0 +1,65 @@
+.tour-form {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    font-weight: bold;
+  }
+  
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .form-group select {
+    appearance: none;
+    -webkit-appearance: none; 
+    -moz-appearance: none; 
+    background-image: url('data:image/svg+xml;utf8,<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill="%23333" d="M14.254 7.072a.75.75 0 01.073 1.06l-3.75 4a.75.75 0 01-1.147-.963l2.8-3.168-2.8-3.167a.75.75 0 011.074-1.048l3.75 4zM10 17.5a7.5 7.5 0 110-15 7.5 7.5 0 010 15z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px top 50%;
+  }
+  
+  .interests-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .interest {
+    margin-right: 20px;
+  }
+  
+  button[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+
+  .homepage-btn {
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+    font-size: 16px;
+  }

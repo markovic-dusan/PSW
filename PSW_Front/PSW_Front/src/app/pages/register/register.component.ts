@@ -35,7 +35,7 @@ export class RegisterComponent {
   }
   
   onSubmit() {
-    this.userData.interests = this.selectedInterests.map(interestIndex => ({ interestValue: interestIndex })); // Izmene su ovde
+    this.userData.interests = this.selectedInterests.map(interestIndex => ({ interestValue: interestIndex })); 
     this.userData.normalizedUserName = this.userData.userName;
     this.userService.registerUser(this.userData)
       .subscribe(response => {

@@ -192,4 +192,8 @@ export class HomepageComponent {
   }
 
   addToCart(tour: Tour) {}
+
+  newTour(){
+    this.router.navigate(['/newtour'])
+  }
 }

@@ -1,0 +1,37 @@
+<div class="tour-form">
+    <button class="homepage-btn" (click)="homepage()"> Homepage</button>
+    <h2>Create New Tour</h2>
+<form (submit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Tour name:</label>
+      <input type="text" id="name" name="name" [(ngModel)]="tourData.name" required>
+    </div>
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <textarea id="description" name="description" [(ngModel)]="tourData.description" required></textarea>
+    </div>
+    <div class="form-group">
+      <label for="difficulty">Difficulty:</label>
+      <select id="difficulty" name="difficulty" [(ngModel)]="tourData.difficulty" required>
+        <option value="0">Easy</option>
+        <option value="1">Intermediate</option>
+        <option value="2">Hard</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="price">Price:</label>
+      <input type="number" id="price" name="price" [(ngModel)]="tourData.price" required>
+    </div>
+    <div class="form-group">
+      <label>Interests:</label><br>
+      <div class="interests-container">
+        <div *ngFor="let interest of interests; let i = index" class="interest">
+          <label>{{ interest }}</label>
+          <input type="checkbox" [id]="'interest' + i" name="interests" 
+            [checked]="selectedInterests.includes(i)" (change)="toggleInterest(i)">
+        </div>
+      </div>
+    </div>
+    <button type="submit">Create tour</button>
+  </form>
+</div>
