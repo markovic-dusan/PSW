@@ -36,9 +36,9 @@
     </div>
     <p class="tour-description">{{ tour.description }}</p>
     <div class="tour-attribute" *ngIf="isAuthor && (this.filter === '' || tour[filter])">
-      <button *ngIf="tour.isDraft  && !allToursSelected" class="publish-btn" (click)="publishTour(tour)">Publish</button>
-      <button *ngIf="tour.isDraft  && !allToursSelected" class="archive-btn" (click)="archiveTour(tour)">Archive</button>
-      <button *ngIf="tour.isPublished  && !allToursSelected" class="archive-btn" (click)="archiveTour(tour)">Archive</button>
+      <button *ngIf="tour.isDraft  && !allToursSelected" class="author-btn" (click)="publishTour(tour)">Publish</button>
+      <button *ngIf="tour.isDraft  && !allToursSelected" class="archieve-btn"  (click)="archiveTour(tour)">Archive</button>
+      <button *ngIf="tour.isPublished  && !allToursSelected" class="author-btn" (click)="archiveTour(tour)">Archive</button>
     </div>
     <!-- interesi -->
     <div class="tour-interests" *ngIf="tour.interests && tour.interests.length > 0">
@@ -61,6 +61,9 @@
       <h3>{{ selectedTour.name }}</h3>
       <p>{{ selectedTour.description }}</p>
       <!-- Ostali detalji -->
+      <p> Keypoints: </p>
+      <button *ngIf="selectedTour.isDraft && !allToursSelected" class="author-btn" (click)="addKeypoint(selectedTour)">Add keypoint</button>
+
     </div>
   </div>
 </div>

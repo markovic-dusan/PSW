@@ -196,4 +196,8 @@ export class HomepageComponent {
   newTour(){
     this.router.navigate(['/newtour'])
   }
+
+  addKeypoint(tour: Tour){
+    
+  }
 }

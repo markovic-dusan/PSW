@@ -43,6 +43,28 @@
   border-radius: 5px;
 }
 
+.author-btn {
+  padding: 10px 20px;
+    border: none;
+    background-color: #528706;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+    font-size: 16px;
+}
+
+.archieve-btn {
+  padding: 10px 20px;
+    border: none;
+    background-color: red;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+    font-size: 16px;
+}
+
 .tour-list {
   width: 60%;
 }
