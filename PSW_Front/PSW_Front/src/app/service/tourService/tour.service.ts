@@ -22,6 +22,10 @@ export class TourService {
     return this.http.get(this.localhost+this.userApi+localStorage.getItem('userId')+'/mytours')
   }
 
+  getRecommendedTours(): Observable<any>{
+    return this.http.get(this.localhost+this.userApi+localStorage.getItem('userId')+'/recommended')
+  }
+
   archieveTour(tourId: number) {
     var url = this.localhost+this.userApi+localStorage.getItem('userId')+'/mytours/'+tourId+'/archieve'
     console.log('Archieve tour url: ' ,url)

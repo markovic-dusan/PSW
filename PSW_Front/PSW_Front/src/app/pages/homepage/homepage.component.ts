@@ -41,6 +41,9 @@ export class HomepageComponent {
   };
 
   allToursSelected: boolean = true;
+  myToursSelected: boolean = false;
+  recommendedToursSelected: boolean = false;
+  selectedDifficulty: number =5 ;
 
   constructor(private router: Router, private tourService: TourService, private loginService: LoginService) { }
 
@@ -57,7 +60,7 @@ export class HomepageComponent {
     this.tourService.getAllTours().subscribe(
       (data: Tour[]) => {
         this.tours = data;
-        this.applyFilter(); // Dodajemo ovde kako bi se filter primenio nakon što se učitaju svi turovi
+        this.applyFilter();
       },
       (error) => {
         console.error('Error getting tours:', error);
@@ -69,7 +72,7 @@ export class HomepageComponent {
     this.tourService.getUserTours().subscribe(
       (data: Tour[]) => {
         this.tours = data;
-        this.applyFilter(); // Dodajemo ovde kako bi se filter primenio nakon što se učitaju turovi korisnika
+        this.applyFilter();
       },
       (error) => {
         console.error('Error getting tours:', error);
@@ -77,21 +80,36 @@ export class HomepageComponent {
     );
   }
 
-  showDetails(tour: Tour) {
-    this.selectedTour = tour;
+  loadRecommendedTours(){
+    this.tourService.getRecommendedTours().subscribe(
+      (data: Tour[]) => {
+        this.tours = data;
+        this.applyFilter();
+      },
+      (error) => {
+        console.error('Error getting tours:', error);
+      }
+    );
   }
 
-  addToCart(tour: Tour) {}
+  showRecommendedTours(){
+    this.resetFilters();
+    this.resetSelectedTour();
+    this.loadRecommendedTours();
+    this.recommendedToursSelected = true;
+    this.allToursSelected = false;
+    this.myToursSelected = false;
+    console.log('Showing Recommended Tours');
+  }
 
   showMyTours() {
+    this.resetFilters();
     this.resetSelectedTour()
     this.loadMyTours();
     this.allToursSelected = false;
+    this.recommendedToursSelected = false;
+    this.myToursSelected = true;
     console.log('Showing My Tours');
-  }
-
-  isTourist() {
-    return localStorage.getItem('userRole') === 'tourist';
   }
 
   showAllTours() {
@@ -99,6 +117,9 @@ export class HomepageComponent {
     this.resetSelectedTour()
     this.loadAllTours();
     this.allToursSelected = true;
+    this.myToursSelected = false;
+    this.recommendedToursSelected = false;
+    console.log('Showing All Tours');
   }
 
   logout(){
@@ -108,11 +129,11 @@ export class HomepageComponent {
   goToProfile(){
   }
 
-  setFilter(attr: keyof Tour | '') { // Promenjeno na keyof Tour | ''
+  // filtriranje za autora
+  setFilter(attr: keyof Tour | '') {
     this.filter = attr;
     this.applyFilter();
   }
-
   applyFilter() {
     if (!this.filter) {
       this.filteredTours = this.tours;
@@ -121,10 +142,22 @@ export class HomepageComponent {
     }
     this.resetSelectedTour()
   }
-
   resetFilters() {
+    this.applyFilterTourist(5)
     this.filter = '';
     this.applyFilter();
+  }
+  //filtriranje za korisnika
+  setFilterTourist(difficulty: number) {
+    this.applyFilterTourist(difficulty);
+  }  
+  applyFilterTourist(difficulty: number) {
+    this.selectedDifficulty = difficulty;
+    if (this.selectedDifficulty === 5) {
+      this.filteredTours = this.tours;
+    } else {
+      this.filteredTours = this.tours.filter(tour => tour.difficulty === difficulty);
+    }
   }
 
   resetSelectedTour(){
@@ -132,7 +165,6 @@ export class HomepageComponent {
   }
 
   publishTour(tour: Tour) {
-    // Implementacija funkcije za objavljivanje ture
   }
   
   archiveTour(tour: Tour) {
@@ -150,4 +182,14 @@ export class HomepageComponent {
     console.log('Tour archieved')
     
   }
+
+  isTourist() {
+    return localStorage.getItem('userRole') === 'tourist';
+  }
+
+  showDetails(tour: Tour) {
+    this.selectedTour = tour;
+  }
+
+  addToCart(tour: Tour) {}
 }

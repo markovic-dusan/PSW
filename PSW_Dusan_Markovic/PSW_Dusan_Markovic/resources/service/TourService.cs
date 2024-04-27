@@ -24,8 +24,10 @@ namespace PSW_Dusan_Markovic.resources.service
             }
 
             if (user.UserType == UserType.AUTHOR)
-            {
-                return _context.Tours.Where(t => t.AuthorId == user.Id).ToList();
+            {   
+                var createdTours =_context.Tours.Where(t => t.AuthorId == user.Id).ToList();
+                getTourInterests(createdTours);
+                return createdTours;
             } else if (user.UserType == UserType.TOURIST)
             {
                 List<Tour> purchasedTours = new List<Tour>();
@@ -34,6 +36,7 @@ namespace PSW_Dusan_Markovic.resources.service
                 {
                     purchasedTours.Add(_context.Tours.Find(tp.TourId));
                 }
+                getTourInterests(purchasedTours);
                 return purchasedTours;
             }
             return null;
@@ -143,7 +146,7 @@ namespace PSW_Dusan_Markovic.resources.service
                                  select t)
                                 .Distinct()
                                 .ToList();
-
+            getTourInterests(matchingTours);
             return matchingTours;
         }
 
