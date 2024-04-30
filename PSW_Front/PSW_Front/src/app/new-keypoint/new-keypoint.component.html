@@ -1,0 +1,26 @@
+<div class="keypoint-form">
+    <h2>Create New Keypoint</h2>
+    <form>
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" [(ngModel)]="kpData.name" required>
+      </div>
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" [(ngModel)]="kpData.description" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="imageUrl">Image URL:</label>
+        <input type="text" id="imageUrl" name="imageUrl" [(ngModel)]="kpData.imageUrl" required>
+      </div>
+      <div class="form-group">
+        <label for="latitude">Latitude:</label>
+        <input type="number" id="latitude" name="latitude" [(ngModel)]="kpData.latitude" required>
+      </div>
+      <div class="form-group">
+        <label for="longitude">Longitude:</label>
+        <input type="number" id="longitude" name="longitude" [(ngModel)]="kpData.longitude" required>
+      </div>
+      <button type="submit" (click)="createKeypoint()">Create Keypoint</button>
+    </form>
+  </div>

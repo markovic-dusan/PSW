@@ -55,6 +55,17 @@ namespace PSW_Dusan_Markovic.resources.controllers
             return Ok(userTours);
         }
 
+        [HttpPost("api/tours/{tourId}/keypoints")]
+        public ActionResult<bool> addKeypoint(KeyPoint kp)
+        {
+            var added = _tourService.addKeypoint(kp);
+            if (!added)
+            {
+                return BadRequest("Keypoint could not be added.");
+            }
+            return Ok(added);
+        }
+
         [HttpPost("api/users/{userId}/mytours")]
         //[Authorize(Roles = "AUTHOR")]
         public ActionResult<bool> postTour(Tour tour)

@@ -22,7 +22,7 @@ export class NewTourComponent {
   interests: string[] = ['ADVENTURE', 'CHILL', 'SPIRITUAL', 'SIGHTSEEING'];
   selectedInterests: number[] = [];
 
-  constructor(private router: Router, private tourService: TourService, private loginService: LoginService) { }
+  constructor(private router: Router, private tourService: TourService) { }
 
   toggleInterest(interestIndex: number){
     const index = this.selectedInterests.indexOf(interestIndex);

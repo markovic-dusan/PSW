@@ -63,7 +63,11 @@
       <!-- Ostali detalji -->
       <p> Keypoints: </p>
       <button *ngIf="selectedTour.isDraft && !allToursSelected" class="author-btn" (click)="addKeypoint(selectedTour)">Add keypoint</button>
-
+      <div *ngFor="let kp of keypoints">
+        <p>  {{ kp.name }}</p>
+        <p>  {{ kp.description }}</p>
+        <p> ------------------------</p>
+      </div>
     </div>
   </div>
 </div>

@@ -6,6 +6,9 @@ import { Router } from '@angular/router';
 import { TourService } from '../../service/tourService/tour.service';
 import { Observable } from 'rxjs';
 import { LoginService } from '../../service/loginService/login.service';
+import { Keypoint } from '../../model/Keypoint';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 @Component({
   standalone: true,
@@ -15,11 +18,13 @@ import { LoginService } from '../../service/loginService/login.service';
   imports: [
     FormsModule,
     NgFor,
-    NgIf
+    NgIf,
+    MatSnackBarModule
   ]
 })
 export class HomepageComponent {
   selectedTour: Tour = new Tour(0,'','',0,0,[],false,false,false,'');
+  keypoints: Keypoint[] = [];
   tours: Tour[] = [];
   filteredTours: Tour[] = [];
   isAuthor: boolean = localStorage.getItem('userRole') === 'author';
@@ -45,7 +50,7 @@ export class HomepageComponent {
   recommendedToursSelected: boolean = false;
   selectedDifficulty: number =5 ;
 
-  constructor(private router: Router, private tourService: TourService, private loginService: LoginService) { }
+  constructor(private router: Router, private tourService: TourService, private loginService: LoginService, private snackbar: MatSnackBar) { }
 
   ngOnInit(): void {
     console.log(localStorage.getItem('currentUser'));
@@ -165,6 +170,18 @@ export class HomepageComponent {
   }
 
   publishTour(tour: Tour) {
+    console.log('Archieve tour')
+    this.tourService.publishTour(tour.tourId).subscribe(
+      () => {
+        this.showMyTours()
+        this.applyFilter()
+        console.log('Tour published');
+      },
+      (error) => {
+        this.showNotification('Error publishing tour. At least 2 keypoints needed!');
+        console.error('Error publishing tour:', error);
+      }
+    );
   }
   
   archiveTour(tour: Tour) {
@@ -189,6 +206,14 @@ export class HomepageComponent {
 
   showDetails(tour: Tour) {
     this.selectedTour = tour;
+    this.tourService.getKeypoints(tour).subscribe(
+      (data: Keypoint[]) => {
+        this.keypoints = data;
+      },
+      (error) => {
+        console.error('Error getting tours:', error);
+      }
+    ); 
   }
 
   addToCart(tour: Tour) {}
@@ -198,6 +223,14 @@ export class HomepageComponent {
   }
 
   addKeypoint(tour: Tour){
-    
+    this.router.navigate(['/keypoint'], { queryParams: { tourId: tour.tourId } });
+  }
+
+  private showNotification(message: string): void {
+    this.snackbar.open(message, 'Close', {
+      duration: 3000, 
+      verticalPosition: 'top', 
+      horizontalPosition: 'center' 
+    });
   }
 }

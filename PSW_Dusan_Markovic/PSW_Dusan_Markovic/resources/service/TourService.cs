@@ -150,6 +150,13 @@ namespace PSW_Dusan_Markovic.resources.service
             return matchingTours;
         }
 
+        public bool addKeypoint(KeyPoint kp)
+        {
+            _context.KeyPoints.Add(kp);
+            _context.SaveChanges();
+            return true;
+        }
+
         public bool postTour(Tour tour)
         {
             if (tour.IsPublished)
