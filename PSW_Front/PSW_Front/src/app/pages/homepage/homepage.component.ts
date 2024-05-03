@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 import { LoginService } from '../../service/loginService/login.service';
 import { Keypoint } from '../../model/Keypoint';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-
+import * as L from 'leaflet';
 
 @Component({
   standalone: true,
@@ -19,7 +19,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
     FormsModule,
     NgFor,
     NgIf,
-    MatSnackBarModule
+    MatSnackBarModule,
   ]
 })
 export class HomepageComponent {
@@ -30,6 +30,7 @@ export class HomepageComponent {
   isAuthor: boolean = localStorage.getItem('userRole') === 'author';
   filter: keyof Tour | '' = ''; 
   showMenu: boolean = false;
+  map: any;
 
   interestMapping: { [key: number]: string } = {
     0: 'ADVENTURE',
@@ -59,6 +60,14 @@ export class HomepageComponent {
     console.log(localStorage.getItem('userRole'));
 
     this.loadAllTours();
+    //this.initMap();
+  }
+
+  initMap(kp: Keypoint): void {
+    console.log('initMap called')
+    this.map = L.map('map').setView([kp.latitude, kp.longitude], 15);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    }).addTo(this.map);
   }
 
   loadAllTours() {
@@ -209,12 +218,56 @@ export class HomepageComponent {
     this.tourService.getKeypoints(tour).subscribe(
       (data: Keypoint[]) => {
         this.keypoints = data;
+        if (this.map) {
+          this.map.setView([this.keypoints[0].latitude, this.keypoints[0].longitude], 15);
+        } else {
+          this.initMap(this.keypoints[0]);
+        }
+        this.displayKeypointsOnMap(data);
       },
       (error) => {
         console.error('Error getting tours:', error);
       }
     ); 
   }
+
+  displayKeypointsOnMap(keypoints: Keypoint[]): void {
+    // obrisi prethodno
+    if (this.map) {
+        this.map.eachLayer((layer: any) => {
+            if (!(layer instanceof L.TileLayer)) {
+                this.map.removeLayer(layer);
+            }
+        });
+    }
+
+    // markeri za keypointe
+    const markers = keypoints.map((kp: Keypoint) => {
+        const popupContent = `
+            <div class="leaflet-popup-content">
+                <h3>${kp.name}</h3>
+                <p>${kp.description}</p>
+                <img src="${kp.imageUrl}" alt="Keypoint Image" style="max-width: 100%; height: auto;">
+            </div>
+        `;
+
+        // Create the marker with custom icon and popup content
+        return L.marker([kp.latitude, kp.longitude],).bindPopup(popupContent);
+    });
+
+    // Add markers to map
+    markers.forEach((marker) => {
+        marker.addTo(this.map);
+    });
+
+    // Convert keypoint coordinates to LatLngExpression[]
+    const latLngs: L.LatLngExpression[] = keypoints.map((kp: Keypoint) => {
+        return [kp.latitude, kp.longitude] as L.LatLngExpression;
+    });
+
+    // Draw path between keypoints
+    L.polyline(latLngs, { color: 'blue' }).addTo(this.map);
+}
 
   addToCart(tour: Tour) {}
 

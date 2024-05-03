@@ -1,3 +1,5 @@
+<div id="map" style="height: 400px;"></div>
+
 <div class="button-container">
   <button class="tour-btn left-btn" [class.selected]="allToursSelected" (click)="showAllTours()">All Tours</button>
   <button class="tour-btn right-btn" [class.selected]="myToursSelected" (click)="showMyTours()">My Tours</button>
@@ -37,8 +39,8 @@
     <p class="tour-description">{{ tour.description }}</p>
     <div class="tour-attribute" *ngIf="isAuthor && (this.filter === '' || tour[filter])">
       <button *ngIf="tour.isDraft  && !allToursSelected" class="author-btn" (click)="publishTour(tour)">Publish</button>
-      <button *ngIf="tour.isDraft  && !allToursSelected" class="archieve-btn"  (click)="archiveTour(tour)">Archive</button>
-      <button *ngIf="tour.isPublished  && !allToursSelected" class="author-btn" (click)="archiveTour(tour)">Archive</button>
+      <button *ngIf="tour.isDraft  && !allToursSelected" class="archieve-btn"  (click)="archiveTour(tour)">Archieve</button>
+      <button *ngIf="tour.isPublished  && !allToursSelected" class="archieve-btn" (click)="archiveTour(tour)">Archieve</button>
     </div>
     <!-- interesi -->
     <div class="tour-interests" *ngIf="tour.interests && tour.interests.length > 0">
