@@ -153,5 +153,15 @@ namespace PSW_Dusan_Markovic.resources.controllers
             return Ok(recommendedTours);
         }
 
+        [HttpPost("api/tours/{tourId}")]
+        public ActionResult<Tour> purchaseTour(TourPurchase tourPurchase)
+        {
+            var purchased = _tourService.purchaseTour(tourPurchase);
+            if (!purchased)
+            {
+                return BadRequest("Tour could not be purchased.");
+            }
+            return Ok(purchased);
+        }
     }
 }

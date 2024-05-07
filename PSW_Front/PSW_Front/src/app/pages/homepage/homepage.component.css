@@ -161,6 +161,9 @@
   margin-right: 10px;
 }
 
+.cart-btn{
+  margin-right: 30%;
+}
 
 .logout-btn:hover,
 .profile-btn:hover {

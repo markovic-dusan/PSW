@@ -29,6 +29,6 @@ public class LoginController : ControllerBase
         var user = _userService.getUserByUsername(loginRequest.LoginUserName);
         Console.WriteLine($"User {loginRequest.LoginUserName} authenticated successfully.");
         var loginInfo = new LoginInfo(token, user);
-        return Ok(new { Token = loginInfo.Token, Username = loginInfo.Username, Role = loginInfo.Role, UserId = loginInfo.UserId });
+        return Ok(new { Token = loginInfo.Token, Username = loginInfo.Username, Role = loginInfo.Role, UserId = loginInfo.UserId, Email = loginInfo.Email });
     }
 }

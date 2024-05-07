@@ -5,6 +5,7 @@
   <button class="tour-btn right-btn" [class.selected]="myToursSelected" (click)="showMyTours()">My Tours</button>
   <button class="tour-btn" *ngIf="isTourist()" [class.selected]="recommendedToursSelected" (click)="showRecommendedTours()">Recommended Tours</button>
   <button class="tour-btn" *ngIf="isAuthor" (click)="newTour()"> Create new tour</button>
+  <button class="cart-btn" *ngIf="isTourist()" (click)="goToCart()">Cart</button>
 </div>
 
 

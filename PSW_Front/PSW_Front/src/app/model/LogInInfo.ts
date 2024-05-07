@@ -4,5 +4,6 @@ export class LogInInfo{
         public username: string = '',
         public role: string = '',
         public userId: string = '',
+        public email: string = ''
         ){}
 }

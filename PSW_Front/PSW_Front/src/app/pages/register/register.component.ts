@@ -19,7 +19,7 @@ import { Router } from '@angular/router';
 
 export class RegisterComponent {
   confirmPassword: string = '';
-  userData: User = new User('', '', '', 1, '', '', [], '');
+  userData: User = new User('', '', '', 0, '', '', [], '');
   interests: string[] = ['ADVENTURE', 'CHILL', 'SPIRITUAL', 'SIGHTSEEING'];
   selectedInterests: number[] = [];
 

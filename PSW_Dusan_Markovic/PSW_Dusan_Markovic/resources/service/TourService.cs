@@ -72,16 +72,15 @@ namespace PSW_Dusan_Markovic.resources.service
             return _context.Tours.Where(t => t.AuthorId == userId && t.IsDraft).ToList();
         }
 
-        public bool purchaseTour(int tourId, string userId)
+        public bool purchaseTour(TourPurchase tourPurchase)
         {
-            Tour tour = _context.Tours.Find(tourId);
-            User user = _context.Users.Find(userId);
+            Tour tour = _context.Tours.Find(tourPurchase.TourId);
+            User user = _context.Users.Find(tourPurchase.UserId);
             if(tour == null || user == null || !tour.IsPublished)
             {
                 return false;
             }
-            TourPurchase purchase = new TourPurchase(userId, tourId, DateTime.Today);
-            _context.TourPurchases.Add(purchase);
+            _context.TourPurchases.Add(tourPurchase);
             _context.SaveChanges();
             return true;
         }

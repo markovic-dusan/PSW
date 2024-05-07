@@ -1,0 +1,21 @@
+
+<div class="container">
+    <h1> Cart</h1>
+</div>
+
+<div class="container">
+    <div class="tours">
+    <div *ngFor="let tour of tours" class="tour-item" (click)="selectTour(tour)">
+        <div class="tour-header">
+            <h3>{{ tour.name }}</h3>
+            <p class="tour-difficulty">Difficulty: {{ tour.difficulty }}</p>
+            <p class="tour-price">Price: ${{ tour.price }}</p>
+            <button class="archieve-btn" (click)="removeFromCart(tour)"> Remove from cart</button>
+        </div>
+    </div>
+    </div>
+    <div class="right-part">
+        <h3> total price: ${{cartService.totalPrice}}</h3>
+        <button class="author-btn" (click)="purchaseTours()"> Buy tours </button>
+    </div>
+</div>

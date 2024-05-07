@@ -4,7 +4,8 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { HomepageComponent } from './pages/homepage/homepage.component';
 import { NewTourComponent } from './pages/new-tour/new-tour.component';
-import { NewKeypointComponent } from './new-keypoint/new-keypoint.component';
+import { NewKeypointComponent } from './pages/new-keypoint/new-keypoint.component';
+import { CartComponent } from './pages/cart/cart.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -12,5 +13,6 @@ export const routes: Routes = [
     { path: 'register', component: RegisterComponent },
     { path: 'homepage', component: HomepageComponent},
     { path: 'newtour', component: NewTourComponent},
-    { path: 'keypoint', component: NewKeypointComponent}
+    { path: 'keypoint', component: NewKeypointComponent},
+    { path: 'cart', component: CartComponent}
   ];

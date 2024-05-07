@@ -9,6 +9,7 @@ import { LoginService } from '../../service/loginService/login.service';
 import { Keypoint } from '../../model/Keypoint';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import * as L from 'leaflet';
+import { CartServiceService } from '../../service/cartService/cart-service.service';
 
 @Component({
   standalone: true,
@@ -51,7 +52,7 @@ export class HomepageComponent {
   recommendedToursSelected: boolean = false;
   selectedDifficulty: number =5 ;
 
-  constructor(private router: Router, private tourService: TourService, private loginService: LoginService, private snackbar: MatSnackBar) { }
+  constructor(private router: Router, private tourService: TourService, private loginService: LoginService, private snackbar: MatSnackBar, private cartService: CartServiceService) { }
 
   ngOnInit(): void {
     console.log(localStorage.getItem('currentUser'));
@@ -218,10 +219,12 @@ export class HomepageComponent {
     this.tourService.getKeypoints(tour).subscribe(
       (data: Keypoint[]) => {
         this.keypoints = data;
-        if (this.map) {
-          this.map.setView([this.keypoints[0].latitude, this.keypoints[0].longitude], 15);
-        } else {
-          this.initMap(this.keypoints[0]);
+        if(this.keypoints.length > 0){
+          if (this.map) {
+            this.map.setView([this.keypoints[0].latitude, this.keypoints[0].longitude], 15);
+          } else {
+            this.initMap(this.keypoints[0]);
+          }
         }
         this.displayKeypointsOnMap(data);
       },
@@ -269,7 +272,9 @@ export class HomepageComponent {
     L.polyline(latLngs, { color: 'blue' }).addTo(this.map);
 }
 
-  addToCart(tour: Tour) {}
+  addToCart(tour: Tour) {
+    this.cartService.addToCart(tour)
+  }
 
   newTour(){
     this.router.navigate(['/newtour'])
@@ -285,5 +290,9 @@ export class HomepageComponent {
       verticalPosition: 'top', 
       horizontalPosition: 'center' 
     });
+  }
+
+  goToCart(){
+    this.router.navigate(['/cart'])
   }
 }

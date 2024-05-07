@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Tour } from '../../model/Tour';
 import { Keypoint } from '../../model/Keypoint';
+import { TourPurchase } from '../../model/TourPurchase';
 
 @Injectable({
   providedIn: 'root'
@@ -49,4 +50,11 @@ export class TourService {
   getKeypoints(tour: Tour): Observable<any>{
     return this.http.get(this.localhost+this.tourApi+tour.tourId+'/keypoints');
   }
+
+  purchaseTour(tour: Tour): Observable<any>{
+    var tp = new TourPurchase(tour.tourId, localStorage.getItem('userId'), new Date().toISOString());
+    return this.http.post<any>(this.localhost+this.tourApi+tp.tourId, tp)
+  }
 }
+
+

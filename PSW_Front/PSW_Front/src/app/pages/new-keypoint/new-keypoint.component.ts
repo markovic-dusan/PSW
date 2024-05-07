@@ -2,8 +2,8 @@ import { NgFor, NgIf } from '@angular/common';
 import { Component, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TourService } from '../service/tourService/tour.service';
-import { Keypoint } from '../model/Keypoint';
+import { TourService } from '../../service/tourService/tour.service';
+import { Keypoint } from '../../model/Keypoint';
 
 @Component({
   selector: 'app-new-keypoint',

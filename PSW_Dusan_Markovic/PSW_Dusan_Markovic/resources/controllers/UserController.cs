@@ -77,28 +77,6 @@ namespace PSW_Dusan_Markovic.resources.controllers
             }
             return Ok(status);
         }
-
-        [HttpPost("{userId}/purchase")]
-        //[Authorize(Roles = "TOURIST")]
-        public ActionResult<bool> PurchaseTour(List<Tour> purchasedTours, string userId)
-        {
-            var result = true;
-            foreach(var tour in purchasedTours)
-            {
-                result = _tourService.purchaseTour(tour.TourId, userId);
-                if (!result)
-                {
-                    return BadRequest("Could not purchase tours.");
-                }
-            }
-            var user = _service.getUserById(userId);
-            //var mailSent = _mailService.sendPurchaseEmail(user.Email, purchasedTours);
-            //if (!mailSent.Result)
-            //{
-            //    return BadRequest("Could not confirm purchase.");
-            //}
-            return Ok();
-        }
     }
 
 }
