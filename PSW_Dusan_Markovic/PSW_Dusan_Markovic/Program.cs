@@ -9,6 +9,8 @@ global using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.Timers;
+using Hangfire;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +21,7 @@ builder.Services.AddDbContext<YourDbContext>(options =>
 });
 
 builder.Services.AddSwaggerGen();
+
 
 builder.Services.AddIdentity<User, IdentityRole>(options =>
 {
@@ -72,6 +75,8 @@ builder.Services.AddCors(options =>
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<TourService>();
 builder.Services.AddScoped<LoginService>();
+builder.Services.AddScoped<ReportService>();
+
 
 var app = builder.Build();
 
@@ -93,6 +98,8 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+
 
 using (var scope = app.Services.CreateScope())
 {
@@ -123,9 +130,10 @@ using (var scope = app.Services.CreateScope())
 
 app.MapControllers();
 
+
+
+
 app.Run();
-
-
 
 static async Task InitializeRolesAsync(RoleManager<IdentityRole> roleManager)
 {

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Tour } from '../../model/Tour';
 import { FormsModule } from '@angular/forms';
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor, NgIf, NgStyle } from '@angular/common';
 import { Router } from '@angular/router';
 import { TourService } from '../../service/tourService/tour.service';
 import { Observable } from 'rxjs';
@@ -21,6 +21,7 @@ import { CartServiceService } from '../../service/cartService/cart-service.servi
     NgFor,
     NgIf,
     MatSnackBarModule,
+    NgStyle
   ]
 })
 export class HomepageComponent {
@@ -294,5 +295,9 @@ export class HomepageComponent {
 
   goToCart(){
     this.router.navigate(['/cart'])
+  }
+
+  goToReports(){
+    this.router.navigate(['/reports'])
   }
 }

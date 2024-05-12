@@ -20,6 +20,8 @@
         public DbSet<Interest> Interests { get; set; }
         public DbSet<UserInterest> UserInterests { get; set; }
         public DbSet<TourInterest> TourInterests { get; set; }
+        public DbSet<SellingReport> Reports {  get; set; }
+        public DbSet<TourFailureMonitor> FailureMonitors {  get; set; }
 
 
 

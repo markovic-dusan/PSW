@@ -1,0 +1,57 @@
+<div class="container">
+    <!-- lista -->
+    <div class="report-list">
+        <h2> Reports </h2>
+        <div *ngFor="let report of reports" class="report-item" (click)="showDetails(report)" [ngStyle]="{'background-color': selectedReport === report ? '#f0f0f0' : 'initial'}">
+            <div class="report-header">
+                <h3> {{report.date}} </h3>
+            </div>
+        </div>
+    </div>
+    <!-- detalji -->
+    <div class="details" >
+        <h2> Report details </h2>
+        <p> {{selectedReport.date}}<br>
+        Number of tours sold: {{selectedReport.noOfSoldTours}}<br>
+        Total profit since the last report: {{selectedReport.profit}}<br>
+        Profit difference since the last report: {{selectedReport.deltaProfit}}<br>
+        </p>
+        <!-- bestsellers -->
+        <h3> Your bestsellers:</h3>
+        <div  *ngFor="let tour of selectedReport.bestSellers" class="tour-item">
+            <div class="tour-header">
+                <h3>{{ tour.name }}</h3>
+                <p class="tour-difficulty">Difficulty: {{ tour.difficulty }}</p>
+                <p class="tour-price">Price: ${{ tour.price }}</p>
+              </div>
+              <p class="tour-description">{{ tour.description }}</p>
+        </div>
+        <!-- neprodate -->
+        <h3> Not sold during the last period:</h3>
+        <div  *ngFor="let tour of selectedReport.notSoldOnce" class="tour-item">
+            <div class="tour-header">
+                <h3>{{ tour.name }}</h3>
+                <p class="tour-difficulty">Difficulty: {{ tour.difficulty }}</p>
+                <p class="tour-price">Price: ${{ tour.price }}</p>
+              </div>
+              <p class="tour-description">{{ tour.description }}</p>
+        </div>
+    </div>
+    <!-- predlozi za arhiviranje -->
+    <div class="archieve-recoomendation"> 
+        <h2>Consider archieving these tours: </h2>
+        <p> These tours weren't sold once during the period of the last 3 reports</p>
+        <div *ngFor="let tour of failingTours" class="tour-item"  >
+            <div class="tour-header">
+              <h3>{{ tour.name }}</h3>
+              <p class="tour-difficulty">Difficulty: {{ tour.difficulty }}</p>
+              <p class="tour-price">Price: ${{ tour.price }}</p>
+            </div>
+            <p class="tour-description">{{ tour.description }}</p>
+            <div class="tour-attribute">
+              <button  class="archieve-btn" (click)="archieveTour(tour)">Archieve</button>
+            </div>
+            
+          </div>
+    </div>
+</div>

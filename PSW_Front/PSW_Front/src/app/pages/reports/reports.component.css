@@ -1,0 +1,61 @@
+.container {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: top;
+}
+
+.report-list {
+    margin-top: 0.7%;
+    width: 30%;
+}
+
+.report-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .report-item:hover {
+    background-color: #f0f0f0;
+}
+
+.report-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .details {
+    width: 35%;
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-top: 5%;
+  }
+
+.archieve-recoomendation{
+    width: 30%;
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-top: 5%;
+}
+
+.tour-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .archieve-btn {
+    padding: 10px 20px;
+      border: none;
+      background-color: red;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+      outline: none;
+      font-size: 16px;
+  }
