@@ -21,6 +21,12 @@ namespace PSW_Dusan_Markovic.resources.controllers
             return Ok(_tourService.getAllTours());
         }
 
+        [HttpGet("api/tours/awarded")]
+        public ActionResult<List<Tour>> getRewardedTours()
+        {
+            return Ok(_tourService.getRewardedTours());
+        }
+
         [HttpGet("api/tours/{id}/keypoints")]
         public ActionResult<KeyPoint> getTourKeypoints(int id)
         {

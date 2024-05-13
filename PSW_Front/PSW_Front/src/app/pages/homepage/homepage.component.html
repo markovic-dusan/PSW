@@ -27,6 +27,10 @@
       <button class="tour-btn" [class.selected]="selectedDifficulty === 1" (click)="setFilterTourist(1)">Intermediate</button>
       <button class="tour-btn" [class.selected]="selectedDifficulty === 2" (click)="setFilterTourist(2)">Hard</button>
     </div>
+    <div class="filter-buttons" *ngIf="isTourist() && allToursSelected">
+      <button class="tour-btn" [class.selected]="!awardedToursSelected" (click)="toggleAwardedTours(false)">All tours</button>
+      <button class="tour-btn" [class.selected]="awardedToursSelected" (click)="toggleAwardedTours(true)">Tours from awarded authors</button>
+    </div>
     <!-- filtriranje za autora -->
     <div class="filter-buttons" *ngIf="isAuthor && myToursSelected">
       <button class="tour-btn" [class.selected]="filter === 'isDraft'" (click)="setFilter('isDraft')">Drafts</button>

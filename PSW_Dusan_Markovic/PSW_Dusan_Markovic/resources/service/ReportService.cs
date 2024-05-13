@@ -22,7 +22,7 @@ namespace PSW_Dusan_Markovic.resources.service
                                     select t).ToList();
             return soldTours;
         }
-        public bool generateReport(string authorId)
+        public SellingReport generateReport(string authorId)
         {
             var dateLimit = DateTime.Today.AddDays(-PeriodInDays).Date;
 
@@ -45,12 +45,13 @@ namespace PSW_Dusan_Markovic.resources.service
             {
                 deltaProfit = (profit - lastReport.Profit) / lastReport.Profit * 100m;
             }
-            _context.Reports.Add(new SellingReport(authorId, DateTime.Today, numberOfSoldTours, profit, deltaProfit));
+            var report = new SellingReport(authorId, DateTime.Today, numberOfSoldTours, profit, deltaProfit);
+            _context.Reports.Add(report);
             _context.SaveChanges();
 
             updateFailureMonitor(DateTime.Today.Date, authorId, soldTours);
 
-            return true;
+            return report;
         }
 
         public void updateFailureMonitor(DateTime reportDate, string authorId, List<Tour> soldTours) {
@@ -86,12 +87,42 @@ namespace PSW_Dusan_Markovic.resources.service
         public bool generateReportForEachAuthor()
         {
             var authors = _context.Users.Where(u => u.UserType == UserType.AUTHOR).ToList();
-
             foreach (var a in authors)
             {
-                generateReport(a.Id);
-                
+                generateReport(a.Id);       
             }
+            awardAuthors();
+            return true;
+        }
+
+        public bool awardAuthors()
+        {
+            var awardedUsers = new List<string>();
+            var reportsWithMaxSoldTours = _context.Reports
+                        .Where(r => r.Date == DateTime.Today.Date && r.NoOfSoldTours == _context.Reports.Where(r => r.Date == DateTime.Today.Date).Max(r => r.NoOfSoldTours))
+                        .ToList();
+            foreach(var r in reportsWithMaxSoldTours)
+            {
+                awardedUsers.Add(r.AuthorId);
+            }
+
+            if(awardedUsers.Count > 0)
+            {
+                foreach (var a in awardedUsers)
+                {
+                    var award = _context.AuthorAwards.FirstOrDefault(aa => aa.AuthorId == a);
+                    if (award == null)
+                    {
+                        _context.AuthorAwards.Add(new AuthorAward(a, 1));
+                        _context.SaveChanges();
+                    }
+                    else
+                    {
+                        award.NumberOfAwards++;
+                        _context.SaveChanges();
+                    }
+                }
+            }            
             return true;
         }
 

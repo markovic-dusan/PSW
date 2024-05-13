@@ -22,6 +22,7 @@
         public DbSet<TourInterest> TourInterests { get; set; }
         public DbSet<SellingReport> Reports {  get; set; }
         public DbSet<TourFailureMonitor> FailureMonitors {  get; set; }
+        public DbSet<AuthorAward> AuthorAwards { get; set; }
 
 
 

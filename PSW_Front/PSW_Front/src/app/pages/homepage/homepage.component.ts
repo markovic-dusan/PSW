@@ -28,7 +28,10 @@ export class HomepageComponent {
   selectedTour: Tour = new Tour(0,'','',0,0,[],false,false,false,'');
   keypoints: Keypoint[] = [];
   tours: Tour[] = [];
+  awardedToursSelected: boolean = false;
+  awardedTours: Tour[] = [];
   filteredTours: Tour[] = [];
+  tempTours: Tour[] = [];
   isAuthor: boolean = localStorage.getItem('userRole') === 'author';
   filter: keyof Tour | '' = ''; 
   showMenu: boolean = false;
@@ -62,7 +65,21 @@ export class HomepageComponent {
     console.log(localStorage.getItem('userRole'));
 
     this.loadAllTours();
+    if(this.isTourist()){
+      this.loadAwardedTours();
+    }
     //this.initMap();
+  }
+
+  loadAwardedTours(){
+    this.tourService.getRewardedTours().subscribe(
+      (data: Tour[]) => {
+        this.awardedTours = data;
+      },
+      (error) => {
+        console.error('Error getting tours:', error);
+      }
+    );
   }
 
   initMap(kp: Keypoint): void {
@@ -133,6 +150,7 @@ export class HomepageComponent {
     this.resetSelectedTour()
     this.loadAllTours();
     this.allToursSelected = true;
+    this.toggleAwardedTours(false)
     this.myToursSelected = false;
     this.recommendedToursSelected = false;
     console.log('Showing All Tours');
@@ -299,5 +317,15 @@ export class HomepageComponent {
 
   goToReports(){
     this.router.navigate(['/reports'])
+  }
+
+  toggleAwardedTours(b : boolean){
+    this.awardedToursSelected = b;
+    if(this.awardedToursSelected){
+      this.tempTours = this.filteredTours;
+      this.filteredTours = this.awardedTours;
+    }else{
+      this.filteredTours = this.tempTours;
+    }
   }
 }

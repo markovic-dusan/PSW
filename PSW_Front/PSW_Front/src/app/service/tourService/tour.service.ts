@@ -20,6 +20,10 @@ export class TourService {
     return this.http.get(this.localhost+this.tourApi);
   }
 
+  getRewardedTours(): Observable<any>{
+    return this.http.get(this.localhost+this.tourApi+'awarded')
+  }
+
   getUserTours(): Observable<any>{
     return this.http.get(this.localhost+this.userApi+localStorage.getItem('userId')+'/mytours')
   }

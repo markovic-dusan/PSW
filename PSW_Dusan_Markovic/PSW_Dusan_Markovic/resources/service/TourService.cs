@@ -49,6 +49,14 @@ namespace PSW_Dusan_Markovic.resources.service
             return tours;
         }
 
+        public List<Tour> getRewardedTours()
+        {
+            return (from  t in _context.Tours
+                         where _context.AuthorAwards.Any(a=> a.AuthorId == t.AuthorId && a.NumberOfAwards >= 5)
+                            && t.IsPublished
+                         select t).ToList();
+        }
+
         public List<Tour> getUserActiveTour(string userId)
         {
             User user = _context.Users.Find(userId);

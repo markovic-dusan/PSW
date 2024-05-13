@@ -14,7 +14,6 @@ namespace PSW_Dusan_Markovic.resources.controllers
     {
         private readonly UserService _service;
         private readonly TourService _tourService;
-        private readonly MailService _mailService;
         private readonly UserManager<User> _userManager;
         private readonly ILogger<UserController> _logger;
 

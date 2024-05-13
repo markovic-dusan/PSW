@@ -19,7 +19,7 @@ namespace PSW_Dusan_Markovic.resources.controllers
         }
 
         [HttpPost("api/users/{authorId}/report")]
-        public ActionResult<bool> generateAuthorReport(string authorId)
+        public ActionResult<SellingReport> generateAuthorReport(string authorId)
         {
             return Ok(_reportService.generateReport(authorId));
         }
