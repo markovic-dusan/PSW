@@ -11,6 +11,8 @@
   right: 0;
 }
 
+
+
 .tour-btn {
   padding: 10px 20px;
   border: none;
@@ -80,6 +82,16 @@
 .tour-item:hover {
   background-color: #f0f0f0;
 }
+
+
+.map{
+  height: 400px;
+}
+
+.map:hover{
+  height: 600px;
+}
+
 
 .tour-header {
   display: flex;

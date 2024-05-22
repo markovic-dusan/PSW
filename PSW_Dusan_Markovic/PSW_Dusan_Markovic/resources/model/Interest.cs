@@ -4,7 +4,6 @@ namespace PSW_Dusan_Markovic.resources.model
 {
     public class Interest
     {
-        [Key]
         public EnumInterest InterestValue { get; set; }
 
         public Interest() { }

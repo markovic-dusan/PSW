@@ -1,12 +1,13 @@
-<div id="map" style="height: 400px;"></div>
+<div id="map" class="map" *ngIf="isTourist() || isAuthor" ></div>
 
 <div class="button-container">
-  <button class="tour-btn left-btn" [class.selected]="allToursSelected" (click)="showAllTours()">All Tours</button>
-  <button class="tour-btn right-btn" [class.selected]="myToursSelected" (click)="showMyTours()">My Tours</button>
+  <button class="tour-btn left-btn" [class.selected]="allToursSelected" *ngIf="isAuthor || isTourist()" (click)="showAllTours()">All Tours</button>
+  <button class="tour-btn right-btn" [class.selected]="myToursSelected" *ngIf="isAuthor || isTourist()" (click)="showMyTours()">My Tours</button>
   <button class="tour-btn" *ngIf="isTourist()" [class.selected]="recommendedToursSelected" (click)="showRecommendedTours()">Recommended Tours</button>
   <button class="tour-btn" *ngIf="isAuthor" (click)="newTour()"> Create new tour</button>
-  <button class="cart-btn" *ngIf="isTourist()" (click)="goToCart()">Cart</button>
+  <button class="author-btn" *ngIf="isTourist()" (click)="goToCart()">Cart</button>
   <button class="cart-btn" *ngIf="isAuthor" (click)="goToReports()">Reports</button>
+  <button class="archieve-btn"  (click)="goToProblems()" style="margin-left: 30%;">Problems</button>
 
 </div>
 
@@ -19,7 +20,7 @@
 
 
   <!-- Lista -->
-  <div class="tour-list">
+  <div class="tour-list" *ngIf="isAuthor || isTourist()">
     <h2>Tours</h2>
     <!-- filtriranje za korisnika -->
     <div class="filter-buttons"  *ngIf="!isAuthor && recommendedToursSelected">
@@ -64,7 +65,22 @@
   </div>
   
   <!-- Detalji -->
-  <div class="details" *ngIf="selectedTour">
+  <div class="details" *ngIf="selectedTour && (isAuthor || isTourist())" >
+    <!-- prijavi problem -->
+    <button *ngIf="isTourist() && myToursSelected && selectedTour.tourId!=0" class="archieve-btn" (click)="toggleReport()"> Report a problem </button>
+    <div class ='details' *ngIf="reportToggled">
+      <form (submit)="reportProblem()">
+        <div class="form-group">
+          <label for="title">Title:</label> <br>
+          <input type="text" id="title" name="title" required [(ngModel)]="problem.title">
+        </div>
+        <div class="form-group">
+          <label for="description">Description:</label> <br>
+          <textarea id="description" name="description" style="height: 150px;" required [(ngModel)]="problem.description"></textarea>
+        </div>
+        <button type="submit" class="archieve-btn" style="margin-top: 5%;">Send report</button>
+      </form>
+    </div>
     <h2>Tour Details</h2>
     <div class="tour-details-content">
       <h3>{{ selectedTour.name }}</h3>

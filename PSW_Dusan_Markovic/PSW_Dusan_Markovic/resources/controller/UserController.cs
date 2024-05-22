@@ -17,11 +17,10 @@ namespace PSW_Dusan_Markovic.resources.controllers
         private readonly UserManager<User> _userManager;
         private readonly ILogger<UserController> _logger;
 
-        public UserController(UserService service, TourService tourService) //, MailService mailService
+        public UserController(UserService service, TourService tourService)
         {
             _service = service;
             _tourService = tourService;
-            //_mailService = mailService;
         }
 
         [HttpGet]

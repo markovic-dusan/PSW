@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PSW_Dusan_Markovic.resources.Data;
 
@@ -11,9 +12,10 @@ using PSW_Dusan_Markovic.resources.Data;
 namespace PSW_Dusan_Markovic.Migrations
 {
     [DbContext(typeof(YourDbContext))]
-    partial class YourDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240513210527_EventSourcing")]
+    partial class EventSourcing
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -175,6 +177,16 @@ namespace PSW_Dusan_Markovic.Migrations
                     b.ToTable("AuthorAwards");
                 });
 
+            modelBuilder.Entity("PSW_Dusan_Markovic.resources.model.Interest", b =>
+                {
+                    b.Property<int>("InterestValue")
+                        .HasColumnType("int");
+
+                    b.HasKey("InterestValue");
+
+                    b.ToTable("Interests");
+                });
+
             modelBuilder.Entity("PSW_Dusan_Markovic.resources.model.KeyPoint", b =>
                 {
                     b.Property<int>("PointId")
@@ -226,9 +238,6 @@ namespace PSW_Dusan_Markovic.Migrations
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TourId")
-                        .HasColumnType("int");
 
                     b.Property<string>("TouristId")
                         .IsRequired()

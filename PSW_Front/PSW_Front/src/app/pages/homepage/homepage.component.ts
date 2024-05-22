@@ -9,7 +9,14 @@ import { LoginService } from '../../service/loginService/login.service';
 import { Keypoint } from '../../model/Keypoint';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import * as L from 'leaflet';
+import 'leaflet-routing-machine';
+import Openrouteservice from 'openrouteservice-js';
+
+
+
 import { CartServiceService } from '../../service/cartService/cart-service.service';
+import { Problem } from '../../model/Problem';
+import { ProblemService } from '../../service/problemService/problem.service';
 
 @Component({
   standalone: true,
@@ -36,6 +43,9 @@ export class HomepageComponent {
   filter: keyof Tour | '' = ''; 
   showMenu: boolean = false;
   map: any;
+  problem = new Problem( 0,'', '', '', 0)
+  reportToggled: boolean = false;
+
 
   interestMapping: { [key: number]: string } = {
     0: 'ADVENTURE',
@@ -56,7 +66,7 @@ export class HomepageComponent {
   recommendedToursSelected: boolean = false;
   selectedDifficulty: number =5 ;
 
-  constructor(private router: Router, private tourService: TourService, private loginService: LoginService, private snackbar: MatSnackBar, private cartService: CartServiceService) { }
+  constructor(private router: Router, private problemService: ProblemService, private tourService: TourService, private loginService: LoginService, private snackbar: MatSnackBar, private cartService: CartServiceService) { }
 
   ngOnInit(): void {
     console.log(localStorage.getItem('currentUser'));
@@ -87,6 +97,7 @@ export class HomepageComponent {
     this.map = L.map('map').setView([kp.latitude, kp.longitude], 15);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     }).addTo(this.map);
+    
   }
 
   loadAllTours() {
@@ -126,6 +137,7 @@ export class HomepageComponent {
   }
 
   showRecommendedTours(){
+    this.selectedTour = new Tour(0,'','',0,0,[],false,false,false,'');
     this.resetFilters();
     this.resetSelectedTour();
     this.loadRecommendedTours();
@@ -136,6 +148,7 @@ export class HomepageComponent {
   }
 
   showMyTours() {
+    this.selectedTour = new Tour(0,'','',0,0,[],false,false,false,'');
     this.resetFilters();
     this.resetSelectedTour()
     this.loadMyTours();
@@ -146,6 +159,7 @@ export class HomepageComponent {
   }
 
   showAllTours() {
+    this.selectedTour = new Tour(0,'','',0,0,[],false,false,false,'');
     this.resetFilters();
     this.resetSelectedTour()
     this.loadAllTours();
@@ -199,7 +213,6 @@ export class HomepageComponent {
   }
 
   publishTour(tour: Tour) {
-    console.log('Archieve tour')
     this.tourService.publishTour(tour.tourId).subscribe(
       () => {
         this.showMyTours()
@@ -234,18 +247,14 @@ export class HomepageComponent {
   }
 
   showDetails(tour: Tour) {
+    this.reportToggled = false;
     this.selectedTour = tour;
     this.tourService.getKeypoints(tour).subscribe(
       (data: Keypoint[]) => {
         this.keypoints = data;
         if(this.keypoints.length > 0){
-          if (this.map) {
-            this.map.setView([this.keypoints[0].latitude, this.keypoints[0].longitude], 15);
-          } else {
-            this.initMap(this.keypoints[0]);
-          }
+          this.displayKeypointsOnMap(data);
         }
-        this.displayKeypointsOnMap(data);
       },
       (error) => {
         console.error('Error getting tours:', error);
@@ -254,7 +263,15 @@ export class HomepageComponent {
   }
 
   displayKeypointsOnMap(keypoints: Keypoint[]): void {
-    // obrisi prethodno
+    // Inicijalizujemo novu mapu
+    if (this.map) {
+      this.map.remove();
+  }
+    const map = L.map('map').setView([keypoints[0].latitude, keypoints[0].longitude], 15);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {}).addTo(map);
+    
+
+    // Obrisi prethodno
     if (this.map) {
         this.map.eachLayer((layer: any) => {
             if (!(layer instanceof L.TileLayer)) {
@@ -262,8 +279,27 @@ export class HomepageComponent {
             }
         });
     }
+    this.map = map; // Postavljamo referencu na novu mapu
 
-    // markeri za keypointe
+    // Convers
+    const latLngs: L.LatLng[] = keypoints.map((kp: Keypoint) => {
+        return L.latLng(kp.latitude, kp.longitude);
+    });
+
+    // Sa profilom za pesake
+    const osrmv1 = new L.Routing.OSRMv1({
+        serviceUrl: 'http://router.project-osrm.org/route/v1',
+        profile: 'foot' // Profil za pesake
+    });
+
+    // Iscrtavanje
+    L.Routing.control({
+        router: osrmv1,
+        waypoints: latLngs,
+        routeWhileDragging: false,
+    }).addTo(map);
+
+    // Markeri
     const markers = keypoints.map((kp: Keypoint) => {
         const popupContent = `
             <div class="leaflet-popup-content">
@@ -273,23 +309,16 @@ export class HomepageComponent {
             </div>
         `;
 
-        // Create the marker with custom icon and popup content
-        return L.marker([kp.latitude, kp.longitude],).bindPopup(popupContent);
+        // Marker i popup
+        return L.marker([kp.latitude, kp.longitude]).bindPopup(popupContent);
     });
 
-    // Add markers to map
+    // Dodavanje markera na mapu
     markers.forEach((marker) => {
-        marker.addTo(this.map);
+        marker.addTo(map);
     });
-
-    // Convert keypoint coordinates to LatLngExpression[]
-    const latLngs: L.LatLngExpression[] = keypoints.map((kp: Keypoint) => {
-        return [kp.latitude, kp.longitude] as L.LatLngExpression;
-    });
-
-    // Draw path between keypoints
-    L.polyline(latLngs, { color: 'blue' }).addTo(this.map);
 }
+
 
   addToCart(tour: Tour) {
     this.cartService.addToCart(tour)
@@ -327,5 +356,29 @@ export class HomepageComponent {
     }else{
       this.filteredTours = this.tempTours;
     }
+  }
+
+  goToProblems(){
+    this.router.navigate(['/problems'])
+  }
+
+  reportProblem(){
+    this.reportToggled = false;
+    this.problem.tourId = this.selectedTour.tourId
+    if(localStorage.getItem('userId') != (null || '')){
+      this.problem.touristId = localStorage.getItem('userId');
+    }
+
+    this.problemService.reportProblem(this.problem).subscribe(response =>{
+      this.showNotification('Problem reported')
+      console.log(response);
+    }, error => {
+      console.error(error);
+    })
+    this.problem = new Problem(0, '', '', '', 0)
+  }
+
+  toggleReport(){
+    this.reportToggled = true;
   }
 }

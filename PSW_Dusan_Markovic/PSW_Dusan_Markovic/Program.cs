@@ -76,6 +76,7 @@ builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<TourService>();
 builder.Services.AddScoped<LoginService>();
 builder.Services.AddScoped<ReportService>();
+builder.Services.AddScoped<ProblemService>();
 
 
 var app = builder.Build();
@@ -204,9 +205,7 @@ void fillDatabase(YourDbContext context, UserManager<User> userManager)
         publishedTour2,
         publishedTour3
     };
-    context.Interests.Add(interestSpiritual);
-    context.Interests.Add(interestSightsee);
-    context.Interests.Add(interestAdventure);
+
     context.UserInterests.Add(new UserInterest(tourist1.Id, interestSpiritual.InterestValue));
 
     context.Tours.AddRange(sampleTours);

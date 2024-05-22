@@ -4,12 +4,13 @@
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
     using PSW_Dusan_Markovic.resources.model;
+    using PSW_Dusan_Markovic.resources.model.problem;
 
     public class YourDbContext : IdentityDbContext<User, IdentityRole, string,
                                                       IdentityUserClaim<string>, IdentityUserRole<string>, IdentityUserLogin<string>,
                                                       IdentityRoleClaim<string>, IdentityUserToken<string>>
     {
-        public YourDbContext(DbContextOptions<YourDbContext> options) : base(options) {}
+        public YourDbContext(DbContextOptions<YourDbContext> options) : base(options) { }
 
         public YourDbContext() : base() { }
 
@@ -17,12 +18,13 @@
         public DbSet<Tour> Tours { get; set; }
         public DbSet<KeyPoint> KeyPoints { get; set; }
         public DbSet<TourPurchase> TourPurchases { get; set; }
-        public DbSet<Interest> Interests { get; set; }
         public DbSet<UserInterest> UserInterests { get; set; }
         public DbSet<TourInterest> TourInterests { get; set; }
-        public DbSet<SellingReport> Reports {  get; set; }
-        public DbSet<TourFailureMonitor> FailureMonitors {  get; set; }
+        public DbSet<SellingReport> Reports { get; set; }
+        public DbSet<TourFailureMonitor> FailureMonitors { get; set; }
         public DbSet<AuthorAward> AuthorAwards { get; set; }
+        public DbSet<Problem> Problems { get; set; }
+        public DbSet<ProblemStatusChangedEvent> ProblemStateChanges { get; set; }
 
 
 

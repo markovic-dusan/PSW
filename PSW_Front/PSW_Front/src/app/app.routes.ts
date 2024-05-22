@@ -7,6 +7,7 @@ import { NewTourComponent } from './pages/new-tour/new-tour.component';
 import { NewKeypointComponent } from './pages/new-keypoint/new-keypoint.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { ReportsComponent } from './pages/reports/reports.component';
+import { ProblemsComponent } from './pages/problems/problems.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -16,5 +17,6 @@ export const routes: Routes = [
     { path: 'newtour', component: NewTourComponent},
     { path: 'keypoint', component: NewKeypointComponent},
     { path: 'cart', component: CartComponent},
-    { path: 'reports', component: ReportsComponent}
+    { path: 'reports', component: ReportsComponent},
+    { path: 'problems', component: ProblemsComponent}
   ];
