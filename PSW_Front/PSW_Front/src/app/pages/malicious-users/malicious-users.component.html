@@ -1,0 +1,23 @@
+<div></div>
+<div style="margin-left: 25%;margin-top: 5%;">
+    <h1 > Malicious users</h1>
+</div>
+<div class="container">
+    <div class="users">
+    <div *ngFor="let user of users" class="user" (click)="selectUser(user)" [ngStyle]="{'background-color': selectedUser === user ? '#f0f0f0' : 'initial'}">
+        <div class="user-header">
+            <h3>{{ user.userName }}</h3>
+            <h3>{{user.email}}</h3>
+            <h3 *ngIf="user.userType == 1"> AUTHOR </h3>
+            <h3 *ngIf="user.userType == 0"> TOURIST </h3>
+            <button style="background-color: red; color: white; height: 60px;" (click)="blockUser(user)"> BLOCK </button>
+        </div>
+    </div>
+    </div>
+
+    <!-- <button style="background-color: green; color: white; width: 4%; height: 70px;" *ngIf="isAuthor() && status==0" (click)="solve()">Solve</button>
+    <button style="background-color: red; color: white; width: 6%; height: 70px;"  *ngIf="isAuthor() && status==0"(click)="sendToRevision()">Send to revision</button>
+    <button style="background-color: green; color: white; width: 6%; height: 70px;" *ngIf="isAdmin() && status==1" (click)="review(true)">Send back</button>
+    <button style="background-color: red; color: white; width: 6%; height: 70px;"  *ngIf="isAdmin() && status==1"(click)="review(false)">Dismiss</button> -->
+
+</div>

@@ -21,6 +21,8 @@ namespace PSW_Dusan_Markovic.resources.model
         [Required]
         public string LastName { get; set; }
 
+        public bool IsBlocked { get; set; }
+
         [NotMapped]
         public List<Interest> Interests { get; set; } 
 
@@ -39,6 +41,7 @@ namespace PSW_Dusan_Markovic.resources.model
             LastName = lastName;
             Email = email;
             Interests = new List<Interest>();
+            IsBlocked = false;
         }
 
         [JsonConstructor]
@@ -51,6 +54,7 @@ namespace PSW_Dusan_Markovic.resources.model
             LastName = lastName;
             Email = email;
             Interests = interests;
+            IsBlocked = false;
         }
 
         public void updateUser(User user)

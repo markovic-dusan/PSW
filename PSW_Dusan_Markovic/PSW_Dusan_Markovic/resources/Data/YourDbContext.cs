@@ -25,6 +25,7 @@
         public DbSet<AuthorAward> AuthorAwards { get; set; }
         public DbSet<Problem> Problems { get; set; }
         public DbSet<ProblemStatusChangedEvent> ProblemStateChanges { get; set; }
+        public DbSet<MaliciousBehaviorTracker> MaliciousTrackers { get; set; }
 
 
 

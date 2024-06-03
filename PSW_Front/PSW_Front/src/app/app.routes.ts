@@ -8,6 +8,8 @@ import { NewKeypointComponent } from './pages/new-keypoint/new-keypoint.componen
 import { CartComponent } from './pages/cart/cart.component';
 import { ReportsComponent } from './pages/reports/reports.component';
 import { ProblemsComponent } from './pages/problems/problems.component';
+import { MaliciousUsersComponent } from './pages/malicious-users/malicious-users.component';
+import { BlockedUSersComponent } from './pages/blocked-users/blocked-users.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -18,5 +20,7 @@ export const routes: Routes = [
     { path: 'keypoint', component: NewKeypointComponent},
     { path: 'cart', component: CartComponent},
     { path: 'reports', component: ReportsComponent},
-    { path: 'problems', component: ProblemsComponent}
+    { path: 'problems', component: ProblemsComponent},
+    {path: 'malicious', component: MaliciousUsersComponent},
+    {path: 'blocked', component: BlockedUSersComponent}
   ];

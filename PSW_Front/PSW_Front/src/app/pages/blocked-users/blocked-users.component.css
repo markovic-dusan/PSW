@@ -1,0 +1,42 @@
+.container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-right: 20%;
+    margin-top: 10%;
+  }
+
+  .users {
+    width: 40%;
+  }
+    
+  .user {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .user_status_change {
+    border: 1px solid #c34a4a;
+    padding: 7px;
+    margin-bottom: 7px;
+    cursor: pointer;
+  }
+
+  .user-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .status_bar {
+    width: 25%;
+    justify-content: center;
+    margin-left: 10%;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+  }

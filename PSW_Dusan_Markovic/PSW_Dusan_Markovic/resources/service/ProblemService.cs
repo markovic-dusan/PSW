@@ -8,8 +8,9 @@ namespace PSW_Dusan_Markovic.resources.service
     {
         private readonly YourDbContext _context;
         private readonly Action<Problem, EnumProblemStatus> _statusChangedHandler;
+        private readonly AdministrationService _administrationService;
 
-        public ProblemService(YourDbContext context)
+        public ProblemService(YourDbContext context , AdministrationService administrationService)
         {
             _context = context;
             _statusChangedHandler = (problem, newStatus) =>
@@ -18,6 +19,7 @@ namespace PSW_Dusan_Markovic.resources.service
                 _context.ProblemStateChanges.Add(new ProblemStatusChangedEvent(problem.ProblemId, newStatus));
                 _context.SaveChanges();
             };
+            _administrationService = administrationService;
         }
 
         public List<Problem> getAllProblems() {
@@ -48,9 +50,19 @@ namespace PSW_Dusan_Markovic.resources.service
             if (isValid)
             {
                 problem.changeStatus(EnumProblemStatus.ON_HOLD);
+                var tour = (from t in _context.Tours
+                            where problem.TourId == t.TourId
+                            select t).FirstOrDefault();
+                //increment author malicious behavior counter
+                if (tour != null)
+                {
+                    _administrationService.noticeMaliciousBehavior(tour.AuthorId);
+                }
             } else
             {
                 problem.changeStatus(EnumProblemStatus.DISMISSED);
+                //increment tourist malicious behavior counter
+                _administrationService.noticeMaliciousBehavior(problem.TouristId);
             }
             return true;
         }

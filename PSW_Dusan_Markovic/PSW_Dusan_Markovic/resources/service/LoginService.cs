@@ -22,7 +22,11 @@ public class LoginService
     {
         Console.WriteLine($"Authenticating user: {loginRequest.LoginUserName}");
         var user = await _userManager.FindByNameAsync(loginRequest.LoginUserName);
-
+        //check if user is blocked
+        if(user.IsBlocked)
+        {
+            return null;
+        }
         
 
         if (user == null)

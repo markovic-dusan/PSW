@@ -1,3 +1,7 @@
+<div></div>
+<div style="margin-left: 25%;margin-top: 5%;">
+    <h1 > Problems</h1>
+</div>
 <div class="container">
     <div class="problems">
     <div *ngFor="let problem of problems" class="problem" (click)="selectProblem(problem)" [ngStyle]="{'background-color': selectedProblem === problem ? '#f0f0f0' : 'initial'}">

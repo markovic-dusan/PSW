@@ -8,6 +8,8 @@
   <button class="author-btn" *ngIf="isTourist()" (click)="goToCart()">Cart</button>
   <button class="cart-btn" *ngIf="isAuthor" (click)="goToReports()">Reports</button>
   <button class="archieve-btn"  (click)="goToProblems()" style="margin-left: 30%;">Problems</button>
+  <button class="archieve-btn" *ngIf="isAdmin()" (click)="goToMalicious()" >Malicious users</button>
+  <button class="archieve-btn" *ngIf="isAdmin()" (click)="goToBlocked()" >Blocked users</button>
 
 </div>
 

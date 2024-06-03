@@ -77,7 +77,7 @@ builder.Services.AddScoped<TourService>();
 builder.Services.AddScoped<LoginService>();
 builder.Services.AddScoped<ReportService>();
 builder.Services.AddScoped<ProblemService>();
-
+builder.Services.AddScoped<AdministrationService>();
 
 var app = builder.Build();
 

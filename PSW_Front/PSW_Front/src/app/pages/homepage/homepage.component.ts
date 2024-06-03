@@ -246,6 +246,10 @@ export class HomepageComponent {
     return localStorage.getItem('userRole') === 'tourist';
   }
 
+  isAdmin() {
+    return localStorage.getItem('userRole') === 'admin';
+  }
+
   showDetails(tour: Tour) {
     this.reportToggled = false;
     this.selectedTour = tour;
@@ -380,5 +384,13 @@ export class HomepageComponent {
 
   toggleReport(){
     this.reportToggled = true;
+  }
+
+  goToMalicious(){
+    this.router.navigate(['/malicious'])
+  }
+
+  goToBlocked(){
+    this.router.navigate(['/blocked'])
   }
 }

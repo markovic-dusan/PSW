@@ -211,6 +211,26 @@ namespace PSW_Dusan_Markovic.Migrations
                     b.ToTable("KeyPoints");
                 });
 
+            modelBuilder.Entity("PSW_Dusan_Markovic.resources.model.problem.MaliciousBehaviorTracker", b =>
+                {
+                    b.Property<int>("TrackerId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TrackerId"), 1L, 1);
+
+                    b.Property<int>("NumberOfStrikes")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("TrackerId");
+
+                    b.ToTable("MaliciousTrackers");
+                });
+
             modelBuilder.Entity("PSW_Dusan_Markovic.resources.model.problem.Problem", b =>
                 {
                     b.Property<int>("ProblemId")
@@ -409,6 +429,9 @@ namespace PSW_Dusan_Markovic.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsBlocked")
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
