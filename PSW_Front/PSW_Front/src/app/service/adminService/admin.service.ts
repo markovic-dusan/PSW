@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../../model/User';
 import { Observable } from 'rxjs';
@@ -14,18 +14,27 @@ export class AdminService {
   constructor(private http:HttpClient) { }
 
   blockUser(user: User){
-    return this.http.put(this.localhost+this.adminApi+user.userName+'/block', {})
+    let token = localStorage.getItem('jwt');
+    let headers = new HttpHeaders().set('Authorization', `${token}`);
+    return this.http.put(this.localhost+this.adminApi+user.userName+'/block', {}, {headers: headers})
   }
 
   unblockUser(user: User){
-    return this.http.put(this.localhost+this.adminApi+user.userName+'/unblock', {})
+    let token = localStorage.getItem('jwt');
+    let headers = new HttpHeaders().set('Authorization', `${token}`);
+    return this.http.put(this.localhost+this.adminApi+user.userName+'/unblock', {}, {headers: headers})
   }
 
   getMaliciousUsers() : Observable<any> {
-    return this.http.get(this.localhost+this.adminApi+'malicious')
+    console.log(localStorage.getItem('jwt'))
+    let token = localStorage.getItem('jwt');
+    let headers = new HttpHeaders().set('Authorization', `${token}`);
+    return this.http.get(this.localhost + this.adminApi + 'malicious', { headers: headers });
   }
 
   getBlockedUsers() : Observable<any> {
-    return this.http.get(this.localhost+this.adminApi+'blocked')
+    let token = localStorage.getItem('jwt');
+    let headers = new HttpHeaders().set('Authorization', `${token}`);
+    return this.http.get(this.localhost+this.adminApi+'blocked', {headers: headers})
   }
 }

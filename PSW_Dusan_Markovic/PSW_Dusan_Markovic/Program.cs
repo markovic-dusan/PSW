@@ -41,11 +41,11 @@ builder.Services.AddAuthentication(options =>
     {
         ValidateIssuer = false,
         ValidateAudience = false,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        ValidIssuer = "issuer", // Postavi vrednost issuer-a
-        ValidAudience = "issuer", // Postavi vrednost audience-a
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("0w0J3Mo1$3cReT")) // Postavi vrednost ključa
+        ValidateLifetime = false,
+        ValidateIssuerSigningKey = false,
+        ValidIssuer = "issuer", 
+        ValidAudience = "issuer", 
+        //IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("0w0J3Mo1$3cReT")) 
     };
 
 });

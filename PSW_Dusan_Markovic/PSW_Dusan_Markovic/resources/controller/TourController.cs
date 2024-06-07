@@ -8,166 +8,215 @@ namespace PSW_Dusan_Markovic.resources.controllers
     public class TourController : ControllerBase
     {
         private readonly TourService _tourService;
+        private readonly LoginService _loginService;
 
-        public TourController(TourService tourService)
+        public TourController(TourService tourService, LoginService loginService)
         {
             _tourService = tourService;
+            _loginService = loginService;
         }
 
         [HttpGet("api/tours")]
-        //[Authorize]
         public ActionResult<List<Tour>> getAllTours()
         {
-            return Ok(_tourService.getAllTours());
+            if (_loginService.authorize(HttpContext.Request.Headers["Authorization"], UserType.TOURIST, UserType.AUTHOR))
+            {
+                return Ok(_tourService.getAllTours());
+            }
+            return Unauthorized();
         }
 
         [HttpGet("api/tours/awarded")]
         public ActionResult<List<Tour>> getRewardedTours()
         {
-            return Ok(_tourService.getRewardedTours());
+            if (_loginService.authorize(HttpContext.Request.Headers["Authorization"], UserType.TOURIST, UserType.AUTHOR))
+            {
+                return Ok(_tourService.getRewardedTours());
+            }
+            return Unauthorized();
         }
 
         [HttpGet("api/tours/{id}/keypoints")]
         public ActionResult<KeyPoint> getTourKeypoints(int id)
         {
-            var keypoints = _tourService.getTourKeypoints(id);
-            if (keypoints == null)
+            if (_loginService.authorize(HttpContext.Request.Headers["Authorization"], UserType.TOURIST, UserType.AUTHOR))
             {
-                return BadRequest("Tour not found.");
+                var keypoints = _tourService.getTourKeypoints(id);
+                if (keypoints == null)
+                {
+                    return BadRequest("Tour not found.");
+                }
+                return Ok(keypoints);
             }
-            return Ok(keypoints);
+            return Unauthorized();
         }
 
         [HttpGet("api/tours/{id}")]
         public ActionResult<Tour> getTourById(int id)
         {
-            var tour = _tourService.getTourById(id);
-            if (tour == null)
+            if (_loginService.authorize(HttpContext.Request.Headers["Authorization"], UserType.TOURIST, UserType.AUTHOR))
             {
-                return BadRequest("Tour not found.");
+                var tour = _tourService.getTourById(id);
+                if (tour == null)
+                {
+                    return BadRequest("Tour not found.");
+                }
+                return Ok(tour);
             }
-            return Ok(tour);
+            return Unauthorized();
         }
 
         [HttpGet("api/users/{userId}/mytours")]
-        //[Authorize]
         public ActionResult<List<User>> getUserTours(string userId)
         {
-            var userTours = _tourService.getUserTours(userId);
-            if (userTours == null)
+            if (_loginService.authorize(HttpContext.Request.Headers["Authorization"], UserType.TOURIST, UserType.AUTHOR))
             {
-                return NotFound();
+                var userTours = _tourService.getUserTours(userId);
+                if (userTours == null)
+                {
+                    return NotFound();
+                }
+                return Ok(userTours);
             }
-            return Ok(userTours);
+            return Unauthorized();
         }
 
         [HttpPost("api/tours/{tourId}/keypoints")]
         public ActionResult<bool> addKeypoint(KeyPoint kp)
         {
-            var added = _tourService.addKeypoint(kp);
-            if (!added)
+            if (_loginService.authorize(HttpContext.Request.Headers["Authorization"], UserType.AUTHOR))
             {
-                return BadRequest("Keypoint could not be added.");
+                var added = _tourService.addKeypoint(kp);
+                if (!added)
+                {
+                    return BadRequest("Keypoint could not be added.");
+                }
+                return Ok(added);
             }
-            return Ok(added);
+            return Unauthorized();
         }
 
         [HttpPost("api/users/{userId}/mytours")]
-        //[Authorize(Roles = "AUTHOR")]
         public ActionResult<bool> postTour(Tour tour)
         {
-            var posted = _tourService.postTour(tour);
-            if (!posted)
+            if (_loginService.authorize(HttpContext.Request.Headers["Authorization"], UserType.AUTHOR))
             {
-                return BadRequest("Tour could not be posted.");
+                var posted = _tourService.postTour(tour);
+                if (!posted)
+                {
+                    return BadRequest("Tour could not be posted.");
+                }
+                return Ok(posted);
             }
-            return Ok(posted);
+            return Unauthorized();
         }
 
         [HttpPut("api/users/{userId}/mytours/{tourId}")]
-        //[Authorize(Roles = "AUTHOR")]
         public ActionResult<bool> updateTour(Tour tour, int tourId)
         {
-            var status = _tourService.updateTour(tour, tourId);
-            if (!status)
+            if (_loginService.authorize(HttpContext.Request.Headers["Authorization"], UserType.AUTHOR))
             {
-                return BadRequest("Tour could not be updated.");
+                var status = _tourService.updateTour(tour, tourId);
+                if (!status)
+                {
+                    return BadRequest("Tour could not be updated.");
+                }
+                return Ok(status);
             }
-            return Ok(status);
+            return Unauthorized() ;
         }
 
         [HttpPut("api/users/{userId}/mytours/{tourId}/publish")]
         [HttpPut("api/users/{userId}/mydrafttours/{tourId}/publish")]
-        //[Authorize(Roles = "AUTHOR")]
         public ActionResult<bool> publishTour(int tourId)
         {
-            var status = _tourService.publishTour(tourId);
-            if (!status)
+            if (_loginService.authorize(HttpContext.Request.Headers["Authorization"], UserType.AUTHOR))
             {
-                return BadRequest("Tour could not be updated.");
+                var status = _tourService.publishTour(tourId);
+                if (!status)
+                {
+                    return BadRequest("Tour could not be updated.");
+                }
+                return Ok(status);
             }
-            return Ok(status);
+            return Unauthorized();
         }
 
         [HttpPut("api/users/{userId}/mytours/{tourId}/archieve")]
         [HttpPut("api/users/{userId}/myactivetours/{tourId}/archieve")]
-        //[Authorize(Roles = "AUTHOR")]
         public ActionResult<bool> archieveTour(int tourId)
         {
-            var status = _tourService.archieveTour(tourId);
-            if (!status)
+            if (_loginService.authorize(HttpContext.Request.Headers["Authorization"], UserType.AUTHOR))
             {
-                return BadRequest("Tour could not be updated.");
+                var status = _tourService.archieveTour(tourId);
+                if (!status)
+                {
+                    return BadRequest("Tour could not be updated.");
+                }
+                return Ok(status);
             }
-            return Ok(status);
+            return Unauthorized();
         }
 
         [HttpGet("api/users/{userId}/myactivetours")]
-        //[Authorize(Roles = "AUTHOR")]
         public ActionResult<List<User>> getUserActiveTours(string userId)
         {
-            var userTours = _tourService.getUserActiveTour(userId);
-            if (userTours == null)
+            if (_loginService.authorize(HttpContext.Request.Headers["Authorization"], UserType.AUTHOR))
             {
-                return NotFound();
+                var userTours = _tourService.getUserActiveTour(userId);
+                if (userTours == null)
+                {
+                    return NotFound();
+                }
+                return Ok(userTours);
             }
-            return Ok(userTours);
+            return Unauthorized();
         }
 
         [HttpGet("api/users/{userId}/mydrafttours")]
-        //[Authorize(Roles = "AUTHOR")]
         public ActionResult<List<Tour>> getUserDraftTours(string userId)
         {
-            Console.WriteLine("*****Controller");
-            var userTours = _tourService.getUserDraftTour(userId);
-            if (userTours == null)
+            if (_loginService.authorize(HttpContext.Request.Headers["Authorization"], UserType.AUTHOR))
             {
-                return BadRequest();
+                Console.WriteLine("*****Controller");
+                var userTours = _tourService.getUserDraftTour(userId);
+                if (userTours == null)
+                {
+                    return BadRequest();
+                }
+                return Ok(userTours);
             }
-            return Ok(userTours);
+            return Unauthorized();
         }
 
         [HttpGet("api/users/{userId}/recommended")]
-        //[Authorize(Roles = "TOURIST")]
         public ActionResult<List<Tour>> getRecommendedTours(string userId)
         {
-            var recommendedTours = _tourService.getRecommendedTours(userId);
-            if (recommendedTours == null)
+            if (_loginService.authorize(HttpContext.Request.Headers["Authorization"], UserType.TOURIST))
             {
-                return NotFound();
+                var recommendedTours = _tourService.getRecommendedTours(userId);
+                if (recommendedTours == null)
+                {
+                    return NotFound();
+                }
+                return Ok(recommendedTours);
             }
-            return Ok(recommendedTours);
+            return Unauthorized() ;
         }
 
         [HttpPost("api/tours/{tourId}")]
         public ActionResult<Tour> purchaseTour(TourPurchase tourPurchase)
         {
-            var purchased = _tourService.purchaseTour(tourPurchase);
-            if (!purchased)
+            if (_loginService.authorize(HttpContext.Request.Headers["Authorization"], UserType.TOURIST))
             {
-                return BadRequest("Tour could not be purchased.");
+                var purchased = _tourService.purchaseTour(tourPurchase);
+                if (!purchased)
+                {
+                    return BadRequest("Tour could not be purchased.");
+                }
+                return Ok(purchased);
             }
-            return Ok(purchased);
+            return Unauthorized();
         }
     }
 }

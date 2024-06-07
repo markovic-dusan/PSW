@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, interval, switchMap } from 'rxjs';
 
@@ -20,15 +20,21 @@ export class ReportService {
   }
 
   getAuthorReports(): Observable<any>{
-    return this.http.get(this.localhost+this.userApi+localStorage.getItem('userId')+'/report')
+    let token = localStorage.getItem('jwt');
+    let headers = new HttpHeaders().set('Authorization', `${token}`);
+    return this.http.get(this.localhost+this.userApi+localStorage.getItem('userId')+'/report', { headers: headers })
   }
 
   generateReports(){
+    let token = localStorage.getItem('jwt');
+    let headers = new HttpHeaders().set('Authorization', `${token}`);
     console.log("generate reports called")
-    return this.http.post(this.localhost+this.reportApi, {})
+    return this.http.post(this.localhost+this.reportApi, {}, { headers: headers })
   }
 
   getFailingTours() : Observable<any>{
-    return this.http.get(this.localhost+this.userApi+localStorage.getItem('userId')+'/failingTours')
+    let token = localStorage.getItem('jwt');
+    let headers = new HttpHeaders().set('Authorization', `${token}`);
+    return this.http.get(this.localhost+this.userApi+localStorage.getItem('userId')+'/failingTours', { headers: headers })
   }
 }

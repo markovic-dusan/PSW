@@ -10,12 +10,24 @@ public class LoginService
     private readonly UserManager<User> _userManager;
     private readonly SignInManager<User> _signInManager;
     private readonly IConfiguration _configuration;
+    private JwtSecurityTokenHandler _handler;
+    private TokenValidationParameters _validationParameters;
+
 
     public LoginService(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration configuration)
     {
         _userManager = userManager;
         _signInManager = signInManager;
         _configuration = configuration;
+        _handler = new JwtSecurityTokenHandler();
+        _validationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateLifetime = false,
+            ValidateIssuerSigningKey = false,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"].PadRight(64)))
+        };
     }
 
     public async Task<string> AuthenticateAsync(LoginRequest loginRequest)
@@ -85,7 +97,24 @@ public class LoginService
             expires: DateTime.Now.AddMinutes(Convert.ToDouble(_configuration["Jwt:ExpireMinutes"])),
             signingCredentials: credentials
         );
+        Console.WriteLine("sssssssssssssssssssss");
 
         return new JwtSecurityTokenHandler().WriteToken(token);
+    }
+
+    public bool authorize(string token, UserType userType, UserType userType2 = UserType.ADMIN, UserType userType3 = UserType.ADMIN)
+    {
+        if(token == null || token == "")
+        {
+            return false;
+        } 
+        SecurityToken validatedToken;
+        var principal = _handler.ValidateToken(token, _validationParameters, out validatedToken);
+        var userRole = principal.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+        if (userRole.ToString() != userType.ToString() && userRole.ToString() != userType2.ToString() && userRole.ToString() != userType3.ToString())
+        {
+            return false;
+        }
+        return true;
     }
 }

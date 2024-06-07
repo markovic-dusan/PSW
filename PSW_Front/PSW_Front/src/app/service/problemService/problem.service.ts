@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Problem } from '../../model/Problem';
 import { Observable } from 'rxjs';
@@ -15,35 +15,51 @@ export class ProblemService {
   constructor(private http:HttpClient) { }
 
   reportProblem(problem: Problem){
-    return this.http.post(this.localhost+this.problemApi, problem);
+    let token = localStorage.getItem('jwt');
+    let headers = new HttpHeaders().set('Authorization', `${token}`);
+    return this.http.post(this.localhost+this.problemApi, problem, { headers: headers });
   }
 
   getAllProblems(): Observable<any>{
-    return this.http.get(this.localhost+this.problemApi)
+    let token = localStorage.getItem('jwt');
+    let headers = new HttpHeaders().set('Authorization', `${token}`);
+    return this.http.get(this.localhost+this.problemApi, { headers: headers })
   }
 
   getUserProblems(): Observable<any>{
-    return this.http.get(this.localhost+this.userApi+localStorage.getItem('userId')+'/problem')
+    let token = localStorage.getItem('jwt');
+    let headers = new HttpHeaders().set('Authorization', `${token}`);
+    return this.http.get(this.localhost+this.userApi+localStorage.getItem('userId')+'/problem', { headers: headers })
   }
 
   getProblemStatus(problemId: number): Observable<any>{
-    return this.http.get(this.localhost+this.problemApi+problemId+'/status')
+    let token = localStorage.getItem('jwt');
+    let headers = new HttpHeaders().set('Authorization', `${token}`);
+    return this.http.get(this.localhost+this.problemApi+problemId+'/status', { headers: headers })
   }
 
   getProblemStatusChangeHistory(problemId: number): Observable<any>{
-    return this.http.get(this.localhost+this.problemApi+problemId+'/history')
+    let token = localStorage.getItem('jwt');
+    let headers = new HttpHeaders().set('Authorization', `${token}`);
+    return this.http.get(this.localhost+this.problemApi+problemId+'/history', { headers: headers })
   }
 
   solveProblem(problemId: number){
-    return this.http.post(this.localhost+this.problemApi+problemId+'/solve', {})
+    let token = localStorage.getItem('jwt');
+    let headers = new HttpHeaders().set('Authorization', `${token}`);
+    return this.http.post(this.localhost+this.problemApi+problemId+'/solve', {}, { headers: headers })
   }
 
   sendToRevision(problemId: number){
-    return this.http.post(this.localhost+this.problemApi+problemId+'/revision', {})
+    let token = localStorage.getItem('jwt');
+    let headers = new HttpHeaders().set('Authorization', `${token}`);
+    return this.http.post(this.localhost+this.problemApi+problemId+'/revision', {}, { headers: headers })
   }
 
   reviewProblem(problemId: number, isValid: boolean){
-    return this.http.post(this.localhost+this.problemApi+problemId+'/review', isValid)
+    let token = localStorage.getItem('jwt');
+    let headers = new HttpHeaders().set('Authorization', `${token}`);
+    return this.http.post(this.localhost+this.problemApi+problemId+'/review', isValid, { headers: headers })
   }
 
 }
