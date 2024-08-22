@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PSW_Dusan_Markovic.resources.model;
 
 namespace PSW_Dusan_Markovic.resources.controllers
 {

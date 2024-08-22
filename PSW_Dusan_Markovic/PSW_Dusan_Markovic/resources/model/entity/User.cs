@@ -24,7 +24,7 @@ namespace PSW_Dusan_Markovic.resources.model
         public bool IsBlocked { get; set; }
 
         [NotMapped]
-        public List<Interest> Interests { get; set; } 
+        public List<Interest> Interests { get; set; }
 
         [Required]
         [EmailAddress]
@@ -62,7 +62,7 @@ namespace PSW_Dusan_Markovic.resources.model
             UserName = user.UserName;
             Password = user.Password;
             Name = user.Name;
-            LastName= user.LastName;
+            LastName = user.LastName;
             Email = user.Email;
         }
 

@@ -10,6 +10,7 @@ using PSW_Dusan_Markovic.resources.service;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
+using PSW_Dusan_Markovic.resources.model.entity;
 
 
 [TestClass]

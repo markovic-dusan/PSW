@@ -9,6 +9,7 @@ using Microsoft.Extensions.Options;
 using Moq;
 using PSW_Dusan_Markovic.resources.Data;
 using PSW_Dusan_Markovic.resources.model;
+using PSW_Dusan_Markovic.resources.model.entity;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 

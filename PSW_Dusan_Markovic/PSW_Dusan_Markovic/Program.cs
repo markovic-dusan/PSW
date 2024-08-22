@@ -11,6 +11,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Timers;
 using Hangfire;
+using PSW_Dusan_Markovic.resources.model;
+
 
 var builder = WebApplication.CreateBuilder(args);
 

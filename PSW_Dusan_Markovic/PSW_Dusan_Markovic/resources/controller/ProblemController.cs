@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PSW_Dusan_Markovic.resources.model;
 using PSW_Dusan_Markovic.resources.model.problem;
 
 namespace PSW_Dusan_Markovic.resources.controller

@@ -7,6 +7,7 @@ using PSW_Dusan_Markovic.resources.Data;
 
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
+using PSW_Dusan_Markovic.resources.model.entity;
 
 [TestClass]
 public class UserServiceTests

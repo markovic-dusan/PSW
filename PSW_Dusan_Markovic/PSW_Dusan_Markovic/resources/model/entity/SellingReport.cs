@@ -13,15 +13,15 @@ namespace PSW_Dusan_Markovic.resources.model
         [Required]
         public DateTime Date { get; set; }
         [Required]
-        public int NoOfSoldTours {  get; set; }
+        public int NoOfSoldTours { get; set; }
         [Required]
-        public decimal Profit {  get; set; }
+        public decimal Profit { get; set; }
         [Required]
         public decimal DeltaProfit { get; set; }
         [NotMapped]
-        public List<Tour> BestSellers {  get; set; }
+        public List<Tour> BestSellers { get; set; }
         [NotMapped]
-        public List<Tour> NotSoldOnce {  get; set; }
+        public List<Tour> NotSoldOnce { get; set; }
 
         public SellingReport(string authorId, DateTime date, int soldTours, decimal profit, decimal deltaProfit, List<Tour> topSellers, List<Tour> notSold)
         {

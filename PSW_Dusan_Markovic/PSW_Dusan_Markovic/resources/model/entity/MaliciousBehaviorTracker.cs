@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace PSW_Dusan_Markovic.resources.model.problem
+namespace PSW_Dusan_Markovic.resources.model
 {
     public class MaliciousBehaviorTracker
     {

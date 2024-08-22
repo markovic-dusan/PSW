@@ -11,9 +11,9 @@ namespace PSW_Dusan_Markovic.resources.model
         public int TourId { get; set; }
 
         [Required]
-        public string Name{ get; set; }
+        public string Name { get; set; }
 
-        public string Description{ get; set; }
+        public string Description { get; set; }
 
         [Required]
         public EnumTourDifficulty Difficulty { get; set; }
@@ -71,7 +71,8 @@ namespace PSW_Dusan_Markovic.resources.model
             KeyPoints.Add(keyPoint);
         }
 
-        public void updateTour(Tour tour) { 
+        public void updateTour(Tour tour)
+        {
             Name = tour.Name;
             Description = tour.Description;
             Difficulty = tour.Difficulty;

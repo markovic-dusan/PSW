@@ -1,16 +1,17 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using PSW_Dusan_Markovic.resources.model.problem;
 
-namespace PSW_Dusan_Markovic.resources.model.problem
+namespace PSW_Dusan_Markovic.resources.model
 {
     public class Problem
     {
         [Key]
         public int ProblemId { get; set; }
         [ForeignKey("User")]
-        public string TouristId {  get; set; }
+        public string TouristId { get; set; }
         public string Title { get; set; }
-        public string Description { get; set; } 
+        public string Description { get; set; }
         public int TourId { get; set; }
         public event EventHandler<ProblemStatusChangedEvent> StatusChanged;
         [NotMapped]
@@ -35,5 +36,5 @@ namespace PSW_Dusan_Markovic.resources.model.problem
         }
     }
 
-    
+
 }

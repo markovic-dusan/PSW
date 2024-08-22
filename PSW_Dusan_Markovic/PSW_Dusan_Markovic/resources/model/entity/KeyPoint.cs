@@ -7,7 +7,7 @@ namespace PSW_Dusan_Markovic.resources.model
     public class KeyPoint
     {
         [Key]
-        public int PointId{ get; set; }
+        public int PointId { get; set; }
 
         [Required]
         public string Name { get; set; }

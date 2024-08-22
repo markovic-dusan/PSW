@@ -12,6 +12,7 @@ using Moq;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using PSW_Dusan_Markovic.resources.model.entity;
 
 [TestClass]
 public class UserControllerIntegrationTests
